@@ -1,0 +1,36 @@
+{
+  "name": "xtwl",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "axios": "^0.20.0",
+    "core-js": "^3.6.5",
+    "element-ui": "^2.13.2",
+    "file-saver": "^2.0.2",
+    "js-cookie": "^2.2.1",
+    "js-md5": "^0.7.3",
+    "jsencrypt": "^3.0.0-rc.1",
+    "jszip": "^3.5.0",
+    "vue": "^2.6.11",
+    "vue-jsonp": "^0.1.8",
+    "vue-router": "^3.0.7",
+    "vuex": "^3.5.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "babel-polyfill": "^6.26.0",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
