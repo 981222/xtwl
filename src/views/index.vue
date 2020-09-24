@@ -1,12 +1,12 @@
 <template>
-    <div id="app">
+    <div id="app" ref="app">
         <el-container>
             <el-aside class="nav-left scroll" :width="width" v-if="this.login">
-                <el-menu router :collapse="isCollapse"  class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+                <el-menu router text-color="#bbbbbb" :collapse="isCollapse"  class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
 
                     <el-menu-item index="/news">
                         <i class="el-icon-s-home"></i>
-                        <span slot="title">公告信息</span>
+                        <span slot="title">首页</span>
                     </el-menu-item>
 
                     <el-submenu v-for="(item,index) in $router.options.routes" :key="index" :index="index+''" v-if="item.show">
@@ -26,7 +26,7 @@
 
             <el-container>
                 <el-header style="text-align: right; font-size: 12px">
-                    <div class="fold" @click="isCollapse=!isCollapse">
+                    <div class="fold" ref="isCollapse" @click="isCollapseClick">
 
                         <i class="el-icon-s-operation" v-if="isCollapse"></i>
                         <i class="el-icon-s-operation" v-else=""></i>
@@ -60,7 +60,7 @@
         data() {
             return {
                 isCollapse: false,
-                width: 200,
+                width: '200',
             }
         },
         computed: {
@@ -86,6 +86,15 @@
                 //         this.clearToken()
                 //         this.$router.push('/login')
                 //       })
+            },
+            isCollapseClick(){
+                this.isCollapse =! this.isCollapse
+                if (this.$refs.app.getBoundingClientRect().x == 200){
+                    this.$refs.app.style.marginLeft = "64px";
+                } else if (this.$refs.app.getBoundingClientRect().x == 64){
+                    this.$refs.app.style.marginLeft = "200px";
+                }
+
             }
         }
     };
@@ -94,8 +103,12 @@
 <style scoped>
     #app {
         /*margin-top: 60px;*/
-        /*margin-left: 200px;*/
+        margin-left: 200px;
         padding: 0px;
+        transition: all 300ms linear 0ms;
+        -o-transition: all 300ms linear 0ms; /*兼容parsto内核*/
+        -moz-transition: all 300ms linear 0ms; /*兼容gecko内核*/
+        -webkit-transition: all 300ms linear 0ms; /*兼容webkit内核*/
     }
     .user-info /deep/ .el-menu-item {
         /*text-align: center!important;*/
@@ -113,9 +126,11 @@
 
     .nav-left{
         background-color: #304156;
-        height: 100vh;
-        overflow-y:auto;
+        height: 100%;
+        overflow-y: auto;
         overflow-x: hidden;
+        position: fixed;
+        left: 0;
     }
 
     .fold {
@@ -167,8 +182,8 @@
     /deep/ .el-header {
         background-color: #fff;
         color: #333;
-        line-height: 60px;
-        height: 60px!important;
+        line-height: 56px;
+        height: 56px!important;
     }
     /deep/ .el-menu {
         color: #fff!important;
@@ -180,13 +195,24 @@
         color: #333;
     }
 
-    .el-menu-item, .el-submenu__title {
-        color: #bbbbbb!important;
+    /*.el-menu-item, .el-submenu__title {*/
+    /*    color: #bbbbbb!important;*/
+    /*}*/
+    /*.nav-left ul li:hover {*/
+    /*    background: #001234;*/
+    /*}*/
+    .el-menu-item .is-active {
+        background: #001234!important;
+        border-left: #33A2EF solid 5px !important;
     }
-    .el-menu-item:hover {
-        background: #409EFF;
+
+    .nav-left .el-menu-item:hover {
+        background-color: #001234!important;
+        border-left: #33A2EF solid 5px !important;
+        transition: all 100ms linear!important;
     }
-    .el-submenu:hover {
-        background: #409EFF;
+    .nav-left /deep/ .el-submenu__title:hover{
+        background-color: #001234!important;
+        transition: all 100ms linear!important;
     }
 </style>
