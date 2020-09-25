@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/home.vue'
-import Adidas from '../views/adidas.vue'
-import Nike from '../views/nike.vue'
-import Tianma from '../views/tianma.vue'
+// import Adidas from '../views/adidas.vue'
+import Brand from '../views/Brand.vue'
+// import Tianma from '../views/tianma.vue'
 import Index from '../views/index.vue'
 import UserInfo from '../views/userInfo.vue'
 import WaterMark from '../views/waterMark.vue'
@@ -53,24 +53,14 @@ const router = new VueRouter({
       path: '/img',
       name: '图片操作',
       component: Index,
-      redirect: '/nike',
+      redirect: '/brand',
       icon: 'el-icon-picture',
       show:true,
       children: [
         {
-          path: '/nike',
-          name: '耐克',
-          component: Nike
-        },
-        {
-          path: '/adidas',
-          name: '阿迪达斯',
-          component: Adidas
-        },
-        {
-          path: '/tianma',
-          name: '天马',
-          component: Tianma
+          path: '/brand',
+          name: '图片获取',
+          component: Brand
         },
       ]
     },
@@ -129,7 +119,7 @@ const router = new VueRouter({
       children: [
         {
           path: '/data',
-          name: '店铺分析',
+          name: '数据分析',
           component: Data,
         },
       ]

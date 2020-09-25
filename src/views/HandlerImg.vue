@@ -1,27 +1,27 @@
 <template>
-    <div>
-        <h1 style="margin-left: 12px">耐克图片下载</h1>
-        <el-form ref="form" :model="form" label-width="80px">
-            <el-form-item label="输入货号">
-                <el-input v-model="form.name"></el-input>
-            </el-form-item>
-            <el-form-item label="选择通道">
-                <el-radio-group v-model="form.resource">
-                    <el-radio label="通道一"></el-radio>
-                    <el-radio label="通道二"></el-radio>
-                    <el-radio label="通道三"></el-radio>
-                </el-radio-group>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="success" @click="getImageUrl">立即创建</el-button>
-                <el-button type="primary" @click="filesToRar('Select')" :loading="loadingSelect">{{ loadingSelect ? '下载中,耗时' + downImgTime.toString() + 's':'下载已选择图片'}}</el-button>
-                <el-button type="primary" @click="filesToRar('All')" :loading="loadingAll">{{ loadingAll ? '下载中,耗时' + downImgTime.toString() + 's':'下载全部图片'}}</el-button>
-            </el-form-item>
-        </el-form>
-
-        <showImage  class="scroll" :imageInfo="imageInfo" :imgData="imgData"></showImage>
+    <div style="border-radius: 4px;box-shadow: rgb(0, 0, 0) 0px 0px 10px -7px;">
+        <div style="margin-bottom: 20px;padding: 20px;">
+            <el-form ref="form" :model="form" label-width="80px">
+                <el-form-item label="输入货号">
+                    <el-input v-model="form.name"></el-input>
+                </el-form-item>
+                <el-form-item label="选择通道">
+                    <el-radio-group v-model="form.resource">
+                        <el-radio label="通道一"></el-radio>
+                        <el-radio label="通道二"></el-radio>
+                        <el-radio label="通道三"></el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="success" @click="getImageUrl">立即创建</el-button>
+                    <el-button type="primary" @click="filesToRar('Select')" :loading="loadingSelect">{{ loadingSelect ? '下载中,耗时' + downImgTime.toString() + 's':'下载已选择图片'}}</el-button>
+                    <el-button type="primary" @click="filesToRar('All')" :loading="loadingAll">{{ loadingAll ? '下载中,耗时' + downImgTime.toString() + 's':'下载全部图片'}}</el-button>
+                </el-form-item>
+            </el-form>
+        </div>
+        <showImage :imageInfo="imageInfo" :imageData="imageData" ></showImage>
     </div>
-</template>
+</template>`
 
 <script>
     import showImage from "./showImage";
@@ -35,71 +35,68 @@
                     name: '',
                     resource: '通道一'
                 },
-                imageInfo: {
-                    'CW0411-010': {
-                        checkAll: false,
-                        isIndeterminate: false,
-                        dialogVisible: false,
-                        dialogVisible2: false,
-                        imageUrls: [],
-                    },
-                    'AJ2876-100': {
-                        checkAll: false,
-                        isIndeterminate: false,
-                        dialogVisible: false,
-                        dialogVisible2: false,
-                        imageUrls: [],
-                    },
-                    'AT5939-407': {
-                        checkAll: false,
-                        isIndeterminate: false,
-                        dialogVisible: false,
-                        dialogVisible2: false,
-                        imageUrls: [],
-                    },
-                },
-                imgData: {
-                    name: 'nike',
-                    urlList: [
-                        {
-                            name: 'CW0411-010',
-                            imgList:['https://images.nike.com/is/image/DotCom/CW0411_010_A_PREM?wid=1800&hei=1800',
-                                'https://images.nike.com/is/image/DotCom/CW0411_010_B_PREM?wid=1800&hei=1800',
-                                'https://images.nike.com/is/image/DotCom/CW0411_010_C_PREM?wid=1800&hei=1800',
-                                'https://images.nike.com/is/image/DotCom/CW0411_010_D_PREM?wid=1800&hei=1800',],
-                        },
-                        {
-                            name: 'AJ2876-100',
-                            imgList:['https://images.nike.com/is/image/DotCom/AJ2876_100_A_PREM?wid=1800&hei=1800',
-                                'https://images.nike.com/is/image/DotCom/AJ2876_100_B_PREM?wid=1800&hei=1800',
-                                'https://images.nike.com/is/image/DotCom/AJ2876_100_C_PREM?wid=1800&hei=1800',
-                                'https://images.nike.com/is/image/DotCom/AJ2876_100_D_PREM?wid=1800&hei=1800'],
-                        },
-                        {
-                            name:'AT5939-407',
-                            imgList: [
-                                'https://images.nike.com/is/image/DotCom/AT5939_407_A_PREM?wid=1800&hei=1800',
-                                'https://images.nike.com/is/image/DotCom/AT5939_407_B_PREM?wid=1800&hei=1800',
-                                'https://images.nike.com/is/image/DotCom/AT5939_407_C_PREM?wid=1800&hei=1800',
-                                'https://images.nike.com/is/image/DotCom/AT5939_407_D_PREM?wid=1800&hei=1800']
-                        }
-                    ],
-                },
                 arrImages: [],
                 loadingSelect: false,
                 loadingAll: false,
                 downImgTime: 1,
+                imageData: {name: this.name, urlList: [],},
+                imageInfo: {},
             }
         },
-        components:{ showImage },
+        props: {
+            name: String,
+            // imageData: Object,
+            // imageInfo: Object,
+        },
+        components:{
+            showImage,
+        },
         methods: {
             getImageUrl() {
                 // 获取图片
                 let method = this.form['resource']
                 switch (method) {
                     case '通道一':
-                        // this.form['name'].split(" ")
-                        console.log('通道一开启')
+                        const articlenos = this.form['name']
+                        this.$http.post(
+                            "/api/adidas",
+                            {},
+                            {
+                                params: {
+                                    'articleno': articlenos,
+                                }
+                            })
+                            .then(res => {
+                                if(res.data.code == 1000) {
+                                    this.$message({
+                                        showClose: true,
+                                        message: '图片获取成功!',
+                                        type: 'success'
+                                    });
+                                    this.imageData['urlList'] = []
+                                    this.imageInfo = {}
+                                    for (var i of res.data.data){
+                                        const data = {}
+                                        for (var j in i){
+                                            this.$set(this.imageInfo,i[j]['articleno'],{
+                                                checkAll: false,
+                                                isIndeterminate: false,
+                                                dialogVisible: false,
+                                                dialogVisible2: false,
+                                                imageUrls: [],
+                                            })
+                                            data['name'] = i[j]['articleno']
+                                            const ids = []
+                                            for (var id of i[j]['ids']){
+                                                ids.push("http://39.108.238.173:8080/api/image/" + id.toString())
+                                            }
+                                            data['imgList'] = ids
+                                            this.imageData['urlList'].push(data)
+                                        }
+                                    }
+                                    console.log(this.imageData)
+                                }
+                            })
                         break
                     case '通道二':
                         console.log('通道二开启')
@@ -124,7 +121,7 @@
                 switch (method) {
                     case "All":
                         _this.loadingAll = true
-                        for(let i of _this.imgData.urlList){
+                        for(let i of _this.imageData.urlList){
                             for(let j = 0; j < i.imgList.length; j++){
                                 _this.arrImages.push({fileUrl: i['imgList'][j], renameFileName: i.name + "_" + (j + 1).toString() + ".jpg"})
                             }
@@ -205,7 +202,5 @@
 </script>
 
 <style scoped>
-
-
 
 </style>

@@ -1,6 +1,6 @@
 <template>
     <el-row>
-        <el-col :span="4" v-for="(data, index) in imgData.urlList" :key="index" style="margin: 20px">
+        <el-col :span="4" v-for="(data, index) in userImageData.urlList" :key="index" style="margin: 20px">
             <el-card shadow="hover" :body-style="{ padding: '0px' }">
 
                 <img :src="data.imgList[0]" class="image">
@@ -8,15 +8,15 @@
                     <span>{{ data.name }}</span>
                     <div class="bottom clearfix">
                         <time class="time">图片数量：{{ data.imgList.length }}</time>
-                        <el-button type="text" class="button" @click="imageInfo[data.name]['dialogVisible2'] = true">查看图片</el-button>
+                        <el-button type="text" class="button" @click="userImageInfo[data.name]['dialogVisible2'] = true">查看图片</el-button>
                     </div>
                 </div>
 
                 <!--图片预览-->
-                <el-dialog title="查看图片" :visible.sync="imageInfo[data.name]['dialogVisible2']" width="80%" append-to-body>
-                    <showImage :imgData="{urlList: [data]}" :imageInfo="imageInfo"></showImage>
+                <el-dialog title="查看图片" :visible.sync="userImageInfo[data.name]['dialogVisible2']" width="80%" append-to-body>
+                    <showImage :imageData="{urlList: [data]}" :imageInfo="userImageInfo"></showImage>
                     <span slot="footer" class="dialog-footer">
-                            <el-button @click="imageInfo[data.name]['dialogVisible2'] = false">关 闭</el-button>
+                            <el-button @click="userImageInfo[data.name]['dialogVisible2'] = false">关 闭</el-button>
                     </span>
                 </el-dialog>
             </el-card>
@@ -37,8 +37,8 @@
         components:{ showImage },
         props: {
             name: String,
-            imgData: Object,
-            imageInfo: Object,
+            userImageData: Object,
+            userImageInfo: Object,
         },
         methods: {
 

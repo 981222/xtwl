@@ -8,5 +8,11 @@ export default {
     clearToken(state) {
         localStorage.setItem('token', '')
         state.token = ''
+    },
+    updateImageData(state, imageData) {
+        state.imageData = imageData
+    },
+    updateImageInfo(state, imageInfo) {
+        state.imageInfo = imageInfo
     }
 }

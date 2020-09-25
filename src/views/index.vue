@@ -4,9 +4,9 @@
             <el-aside class="nav-left scroll" :width="width" v-if="this.login">
                 <el-menu router text-color="#bbbbbb" :collapse="isCollapse"  class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
 
-                    <el-menu-item index="/news">
-                        <i class="el-icon-s-home"></i>
-                        <span slot="title">首页</span>
+                    <el-menu-item index="/news" class="nav-home" @click="this.$router.push('/news')">
+                        <i class="el-icon-s-promotion" style="color: #fff;margin-right: 10px"></i>
+                        <span slot="title"><strong>雄途网络系统</strong></span>
                     </el-menu-item>
 
                     <el-submenu v-for="(item,index) in $router.options.routes" :key="index" :index="index+''" v-if="item.show">
@@ -25,12 +25,20 @@
             </el-aside>
 
             <el-container>
-                <el-header style="text-align: right; font-size: 12px">
-                    <div class="fold" ref="isCollapse" @click="isCollapseClick">
+                <el-header class="header1">
 
+                    <div class="fold" ref="isCollapse" @click="isCollapseClick">
                         <i class="el-icon-s-operation" v-if="isCollapse"></i>
                         <i class="el-icon-s-operation" v-else=""></i>
                     </div>
+
+<!--                    <el-breadcrumb separator="/">-->
+<!--                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>-->
+<!--                        <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>-->
+<!--                        <el-breadcrumb-item>活动列表</el-breadcrumb-item>-->
+<!--                        <el-breadcrumb-item>活动详情</el-breadcrumb-item>-->
+<!--                    </el-breadcrumb>-->
+
                     <el-dropdown router trigger="click" v-if="this.login">
                         <el-link :underline="false"><el-avatar style="margin: 10px;" shape="square" :size="40" src="https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png"></el-avatar></i></el-link>
                         <el-dropdown-menu slot="dropdown">
@@ -43,6 +51,11 @@
                         <el-link :underline="false" href="/register">注册</el-link>
                     </div>
                 </el-header>
+<!--                <el-header style="text-align: right; font-size: 12px;box-shadow: rgb(0, 0, 0) 0px 1px 10px -7px;height: 30px!important;line-height: 30px!important;">-->
+<!--                    <div style="float: left">-->
+<!--                        <el-link :underline="false" type="success" @click="this.$router.push('/news')">首页</el-link>-->
+<!--                    </div>-->
+<!--                </el-header>-->
 
                 <el-main>
                     <router-view></router-view>
@@ -68,15 +81,15 @@
             ...mapState(['token'])
         },
         created() {
-            console.log(this.$http.defaults.headers)
+            // console.log(this.$http.defaults.headers)
         },
         methods: {
             ...mapMutations(['clearToken', 'chageToken']),
-            handleOpen(key, keyath) {
-                console.log(key, keyPath);
+            handleOpen(key, keyPath) {
+                // console.log(key, keyPath);
             },
             handleClose(key, keyPath) {
-                console.log(key, keyPath);
+                // console.log(key, keyPath);
             },
             logout (){
                 this.clearToken()
@@ -169,15 +182,16 @@
         background: #fff;
     }
 
-    .login-register .el-link--default{
-        color: white!important;
-    }
-    .login-register {
-        float: right;
-        width: 100px;
-        display: flex;
-        justify-content: space-around;
-    }
+    /*.login-register .el-link--default{*/
+    /*    color: white!important;*/
+    /*}*/
+
+    /*.login-register {*/
+    /*    float: right;*/
+    /*    width: 100px;*/
+    /*    display: flex;*/
+    /*    justify-content: space-around;*/
+    /*}*/
 
     /deep/ .el-header {
         background-color: #fff;
@@ -195,24 +209,37 @@
         color: #333;
     }
 
-    /*.el-menu-item, .el-submenu__title {*/
-    /*    color: #bbbbbb!important;*/
-    /*}*/
-    /*.nav-left ul li:hover {*/
-    /*    background: #001234;*/
-    /*}*/
-    .el-menu-item .is-active {
-        background: #001234!important;
-        border-left: #33A2EF solid 5px !important;
+    .nav-left /deep/ .el-menu-item.is-active {
+        background-color: #001234!important;
+        border-left: #33A2EF solid 4px !important;
     }
 
     .nav-left .el-menu-item:hover {
         background-color: #001234!important;
-        border-left: #33A2EF solid 5px !important;
+        border-left: #33A2EF solid 4px !important;
         transition: all 100ms linear!important;
     }
-    .nav-left /deep/ .el-submenu__title:hover{
+    .nav-left /deep/ .el-submenu__title:hover {
         background-color: #001234!important;
         transition: all 100ms linear!important;
+    }
+    .nav-home {
+        background-color: #001234;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /deep/ .el-link--inner {
+        height: 56px!important;
+    }
+    .header1 {
+        text-align: right;
+        font-size: 12px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 </style>
