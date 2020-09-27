@@ -32,13 +32,46 @@
     export default {
         data() {
             return {
+                userImageInfo: {},
+                userImageData: {
+                    urlList:[]
+                }
             };
         },
         components:{ showImage },
         props: {
             name: String,
-            userImageData: Object,
-            userImageInfo: Object,
+            // userImageData: Object,
+            // userImageInfo: Object,
+        },
+        created() {
+            getUserImage: {
+                this.$http.get("/api/my/img").then(res => {
+                    if (res.data.code == 200){
+                        this.userImageData['urlList'] = []
+                        this.userImageInfo = {}
+                        for (var i of res.data.data){
+                            const data = {}
+                            this.$set(this.userImageInfo, i['jt_articleno'], {
+                                checkAll: false,
+                                isIndeterminate: false,
+                                dialogVisible: false,
+                                dialogVisible2: false,
+                                imageUrls: [],
+                            })
+                            data['name'] = i['jt_articleno']
+                            const ids = []
+                            for (var id of i['img_ids']){
+                                ids.push("http://39.108.238.173:8080/api/image/" + id.toString())
+                            }
+                            data['imgList'] = ids
+                            this.userImageData['urlList'].push(data)
+                        }
+                        console.log(this.userImageData)
+                        console.log(this.userImageInfo)
+                    }
+                })
+            }
         },
         methods: {
 

@@ -8,8 +8,8 @@
                 <el-form-item label="选择通道">
                     <el-radio-group v-model="form.resource">
                         <el-radio label="通道一"></el-radio>
-                        <el-radio label="通道二"></el-radio>
-                        <el-radio label="通道三"></el-radio>
+<!--                        <el-radio label="通道二"></el-radio>-->
+<!--                        <el-radio label="通道三"></el-radio>-->
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item>
@@ -54,55 +54,27 @@
         methods: {
             getImageUrl() {
                 // 获取图片
-                let method = this.form['resource']
-                switch (method) {
-                    case '通道一':
+                const brand = this.name
+                const method = this.form['resource']
+                switch (brand) {
+                    case 'nike':
+                        alert("耐克下载通道尚未开启!")
+                        break
+                    case 'adidas':
                         const articlenos = this.form['name']
-                        this.$http.post(
-                            "/api/adidas",
-                            {},
-                            {
-                                params: {
-                                    'articleno': articlenos,
-                                }
-                            })
-                            .then(res => {
-                                if(res.data.code == 1000) {
-                                    this.$message({
-                                        showClose: true,
-                                        message: '图片获取成功!',
-                                        type: 'success'
-                                    });
-                                    this.imageData['urlList'] = []
-                                    this.imageInfo = {}
-                                    for (var i of res.data.data){
-                                        const data = {}
-                                        for (var j in i){
-                                            this.$set(this.imageInfo,i[j]['articleno'],{
-                                                checkAll: false,
-                                                isIndeterminate: false,
-                                                dialogVisible: false,
-                                                dialogVisible2: false,
-                                                imageUrls: [],
-                                            })
-                                            data['name'] = i[j]['articleno']
-                                            const ids = []
-                                            for (var id of i[j]['ids']){
-                                                ids.push("http://39.108.238.173:8080/api/image/" + id.toString())
-                                            }
-                                            data['imgList'] = ids
-                                            this.imageData['urlList'].push(data)
-                                        }
-                                    }
-                                    console.log(this.imageData)
-                                }
-                            })
+                        this.getAdidasImage(articlenos)
                         break
-                    case '通道二':
-                        console.log('通道二开启')
+                    case 'tianma':
+                        alert("天马下载通道尚未开启!")
                         break
-                    case '通道三':
-                        console.log('通道三开启')
+                    case 'puma':
+                        alert("彪马下载通道尚未开启!")
+                        break
+                    case 'converse':
+                        alert("匡威下载通道尚未开启!")
+                        break
+                    case 'skechers':
+                        alert("斯凯奇下载通道尚未开启!")
                         break
                 }
             },
@@ -196,6 +168,55 @@
                     };
                     xmlhttp.send();
                 });
+            },
+            getAdidasImage(articlenos) {
+                this.$http.post(
+                    "/api/adidas",
+                    {},
+                    {
+                        params: {
+                            'articleno': articlenos,
+                        }
+                    })
+                    .then(res => {
+                        if(res.data.code == 1000) {
+                            this.$message({
+                                showClose: true,
+                                message: '图片获取成功!',
+                                type: 'success'
+                            });
+                            this.imageData['urlList'] = []
+                            this.imageInfo = {}
+                            for (var i of res.data.data){
+                                const data = {}
+                                for (var j in i){
+                                    this.$set(this.imageInfo, i[j]['articleno'], {
+                                        checkAll: false,
+                                        isIndeterminate: false,
+                                        dialogVisible: false,
+                                        dialogVisible2: false,
+                                        imageUrls: [],
+                                    })
+                                    data['name'] = i[j]['articleno']
+                                    const ids = []
+                                    for (var id of i[j]['ids']){
+                                        ids.push("http://39.108.238.173:8080/api/image/" + id.toString())
+                                    }
+                                    data['imgList'] = ids
+                                    this.imageData['urlList'].push(data)
+                                }
+                            }
+                            // console.log(this.imageData)
+                        }
+                        else if (res.data.code == 1002){
+                            this.$message({
+                                showClose: true,
+                                message: '登陆时间过期,请重新登陆!',
+                                type: 'warning'
+                            });
+                            this.$router.push("/login")
+                        }
+                    })
             }
         }
     }

@@ -77,6 +77,8 @@
             var validateUser = (rule, value, callback) => {
                 if (value === '') {
                     callback(new Error('请输入用户名'));
+                } else if (/[\u4E00-\u9FA5]/g.test(value)){
+                    callback(new Error('不能使用中文,请重新输入'));
                 } else {
                     callback();
                 }
@@ -104,7 +106,6 @@
             return {
                 show: true,
                 countDownTime: '',
-                DEFAULT_NUM: '6862577',
                 sms_token: '',
                 ruleForm: {
                     user: '',
@@ -211,7 +212,7 @@
             },
             getCode(){
                 const time = new Date().getTime()
-                const str = time.toString() + this.ruleForm.phone + this.DEFAULT_NUM
+                const str = time.toString() + this.ruleForm.phone + this.$store.state.DEFAULT_NUM
                 const sms_token = md5(str)
                 this.$http.post(
                     "/api/message/send",

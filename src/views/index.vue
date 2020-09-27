@@ -40,7 +40,7 @@
 <!--                    </el-breadcrumb>-->
 
                     <el-dropdown router trigger="click" v-if="this.login">
-                        <el-link :underline="false"><el-avatar style="margin: 10px;" shape="square" :size="40" src="https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png"></el-avatar></i></el-link>
+                        <el-link :underline="false"><el-avatar :size="40" src="https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png"></el-avatar></el-link>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item icon="el-icon-s-promotion"><el-link :underline="false" @click="logout">退出登录</el-link></el-dropdown-item>
                         </el-dropdown-menu>
@@ -81,7 +81,7 @@
             ...mapState(['token'])
         },
         created() {
-            // console.log(this.$http.defaults.headers)
+            console.log(this.$http.defaults.headers)
         },
         methods: {
             ...mapMutations(['clearToken', 'chageToken']),
@@ -92,13 +92,13 @@
                 // console.log(key, keyPath);
             },
             logout (){
-                this.clearToken()
-                this.$router.push('/login')
-                // this.$http.get("/api/auth/logout")
-                //         .then(res => {
-                //         this.clearToken()
-                //         this.$router.push('/login')
-                //       })
+                this.$http.get("/api/auth/logout")
+                        .then((res) => {
+                            if (res.data.code === 1000){
+                                this.clearToken()
+                                this.$router.push('/login')
+                            }
+                      })
             },
             isCollapseClick(){
                 this.isCollapse =! this.isCollapse
@@ -196,7 +196,7 @@
     /deep/ .el-header {
         background-color: #fff;
         color: #333;
-        line-height: 56px;
+        line-height: 11px;
         height: 56px!important;
     }
     /deep/ .el-menu {
@@ -232,10 +232,10 @@
     }
 
     /deep/ .el-link--inner {
-        height: 56px!important;
+        /*height: 56px!important;*/
     }
     .header1 {
-        text-align: right;
+        text-align: center;
         font-size: 12px;
         border-bottom: 1px solid #eee;
         display: flex;

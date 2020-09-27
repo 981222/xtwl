@@ -7,11 +7,12 @@ try {
 
 export default {
     token: defaultToken,
-    imageInfo: {},
-    imageData: {
-        name: 'nike',
-        urlList: [],
-    },
+    // imageInfo: {},
+    // imageData: {
+    //     name: 'nike',
+    //     urlList: [],
+    // },
+    DEFAULT_NUM: '6862577',
     userImageInfo: {
         'CW0411-010': {
             checkAll: false,

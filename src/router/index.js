@@ -92,11 +92,11 @@ const router = new VueRouter({
           name: '个人信息',
           component: UserInfo
         },
-        {
-          path: '/waterMark',
-          name: '水印设置',
-          component: WaterMark
-        },
+        // {
+        //   path: '/waterMark',
+        //   name: '水印设置',
+        //   component: WaterMark
+        // },
         {
           path: '/userLog',
           name: '操作日志',

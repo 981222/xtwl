@@ -18,7 +18,7 @@
                             <i slot="prefix" class="el-icon-lock" />
                         </el-input>
                     </el-form-item>
-                    <el-checkbox v-model="ruleForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
+<!--                    <el-checkbox v-model="ruleForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>-->
                     <el-form-item>
                         <el-button type="primary"
                                    @click="submitForm('ruleForm')"
@@ -54,7 +54,7 @@
                 ruleForm: {
                     user: '',
                     pass: '',
-                    rememberMe: false,
+                    // rememberMe: false,
                 },
                 rules: {
                     pass: [
@@ -67,16 +67,16 @@
             };
         },
         created() {
-            getCookie: {
-                const username = Cookies.get("username")
-                const password = Cookies.get("password")
-                const rememberMe = Cookies.get('rememberMe')
-                this.ruleForm = {
-                    user: username === undefined ? this.ruleForm.user : username,
-                    pass: password === undefined ? this.ruleForm.pass : decrypt(password),
-                    rememberMe: rememberMe === undefined ? false : Boolean(rememberMe)
-                }
-            }
+            // getCookie: {
+            //     const username = Cookies.get("username")
+            //     const password = Cookies.get("password")
+            //     const rememberMe = Cookies.get('rememberMe')
+            //     this.ruleForm = {
+            //         user: username === undefined ? this.ruleForm.user : username,
+            //         pass: password === undefined ? this.ruleForm.pass : decrypt(password),
+            //         rememberMe: rememberMe === undefined ? false : Boolean(rememberMe)
+            //     }
+            // }
         },
         methods: {
             getCookie() {
@@ -94,7 +94,7 @@
                     if (valid) {
                         this.login(this.ruleForm.user, this.ruleForm.pass)
                     } else {
-                        console.log('error submit!!');
+                        // console.log('error submit!!');
                         return false;
                     }
                 });
@@ -110,19 +110,20 @@
                         }
                     })
                     .then(res => {
-                        if (typeof(res.data.access_token) !== "undefined"){
-                            if (this.ruleForm.rememberMe) {
-                                Cookies.set("username", this.ruleForm.user, { expires: 30 });
-                                Cookies.set("password", encrypt(this.ruleForm.pass), { expires: 30 });
-                                Cookies.set('rememberMe', this.ruleForm.rememberMe, { expires: 30 });
-                            } else {
-                                Cookies.remove("username");
-                                Cookies.remove("password");
-                                Cookies.remove('rememberMe');
-                            }
-                            this.$store.commit("chageToken",res.data.access_token)
+                        if (res.data.code === 1000){
+                            // if (this.ruleForm.rememberMe) {
+                            //     Cookies.set("username", this.ruleForm.user, { expires: 30 });
+                            //     Cookies.set("password", encrypt(this.ruleForm.pass), { expires: 30 });
+                            //     Cookies.set('rememberMe', this.ruleForm.rememberMe, { expires: 30 });
+                            // } else {
+                            //     Cookies.remove("username");
+                            //     Cookies.remove("password");
+                            //     Cookies.remove('rememberMe');
+                            // }
+                            // console.log(res.data.data.access_token)
+                            this.$store.commit("chageToken",res.data.data.access_token)
                             this.$http.defaults.headers = {
-                                'access_token': res.data.access_token
+                                'access_token': res.data.data.access_token
                             }
                             this.$router.push("/news")
                             this.$message({
