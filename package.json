@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "axios": "^0.20.0",
+    "bootstrap": "^4.5.2",
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
     "file-saver": "^2.0.2",
@@ -26,6 +27,14 @@
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "babel-polyfill": "^6.26.0",
+    "css-loader": "^4.3.0",
+    "less": "^3.12.2",
+    "less-loader": "^7.0.1",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^10.0.2",
+    "scss-loader": "0.0.1",
+    "stylus": "^0.54.8",
+    "stylus-loader": "^3.0.2",
     "vue-template-compiler": "^2.6.11"
   },
   "browserslist": [

@@ -74,6 +74,10 @@
             return {
                 isCollapse: false,
                 width: '200',
+                username: '',
+                email: '',
+                phone: '',
+                grade: '',
             }
         },
         computed: {
@@ -82,6 +86,30 @@
         },
         created() {
             console.log(this.$http.defaults.headers)
+            console.log()
+            getUserInfo: {
+                this.$http.get("/api/my/info").then(res => {
+                    if (res.data.code == 1000){
+                        this.username = res.data.data.nikeName
+                        this.email = res.data.data.email
+                        this.phone = res.data.data.phone
+                        switch (res.data.data.grade) {
+                            case "free":
+                                this.grade = "免费会员"
+                                break;
+                            case "primary":
+                                this.grade = "免费会员"
+                                break;
+                            case "middle":
+                                this.grade = "免费会员"
+                                break;
+                            case "advanced":
+                                this.grade = "免费会员"
+                                break;
+                        }
+                    }
+                })
+            }
         },
         methods: {
             ...mapMutations(['clearToken', 'chageToken']),

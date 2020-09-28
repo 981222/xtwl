@@ -1,19 +1,19 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/home.vue'
+import Home from '../views/index/home.vue'
 // import Adidas from '../views/adidas.vue'
-import Brand from '../views/Brand.vue'
+import Brand from '../views/imageHandler/Brand.vue'
 // import Tianma from '../views/tianma.vue'
 import Index from '../views/index.vue'
-import UserInfo from '../views/userInfo.vue'
-import WaterMark from '../views/waterMark.vue'
+import UserInfo from '../views/user/userInfo.vue'
+import WaterMark from '../views/user/waterMark.vue'
 import Login from '../views/login.vue'
 import Register from '../views/register.vue'
-import UserLog from '../views/userLog.vue'
+import UserLog from '../views/user/userLog.vue'
 import News from '../views/news.vue'
-import Data from '../views/data.vue'
-import UserRecharge from '../views/userRecharge.vue'
-import DownloadedImg from '../views/downloadedImg.vue'
+import Data from '../views/dataAnalysis/data.vue'
+import UserRecharge from '../views/user/userRecharge.vue'
+import DownloadedImg from '../views/imageManage/downloadedImg.vue'
 
 Vue.use(VueRouter)
 
@@ -37,14 +37,14 @@ const router = new VueRouter({
       component: Register
     },
     {
-      path: '/news',
+      path: '/new',
       name: '公告信息',
-      icon: 'el-icon-s-home',
       component: Index,
+      icon: 'el-icon-s-home',
       children: [
         {
           path: '/news',
-          name: '公告信息',
+          name: '公告',
           component: News
         },
       ]
@@ -110,16 +110,16 @@ const router = new VueRouter({
       ]
     },
     {
-      path: '/data_nalysis',
+      path: '/dataNalysis',
       name: '数据分析',
       component: Index,
       redirect: '/data',
-      show:true,
+      show: true,
       icon: 'el-icon-s-data',
       children: [
         {
           path: '/data',
-          name: '数据分析',
+          name: '表格分析',
           component: Data,
         },
       ]

@@ -17,4 +17,13 @@ module.exports = {
     //     config.entry('main').add('babel-polyfill') // main是入口js文件
     //     // 其他配置
     // }
+    css: {
+        loaderOptions: {
+            sass: {
+                data: `
+                @import "@/assets/scss/style.scss";
+                `
+            }
+        }
+    }
 }

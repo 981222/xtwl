@@ -79,16 +79,16 @@
             // }
         },
         methods: {
-            getCookie() {
-                const username = Cookies.get("username")
-                const password = Cookies.get("password")
-                const rememberMe = Cookies.get('rememberMe')
-                this.ruleForm = {
-                    user: username === undefined ? this.ruleForm.user : username,
-                    pass: password === undefined ? this.ruleForm.pass : decrypt(password),
-                    rememberMe: rememberMe === undefined ? false : Boolean(rememberMe)
-                }
-            },
+            // getCookie() {
+            //     const username = Cookies.get("username")
+            //     const password = Cookies.get("password")
+            //     const rememberMe = Cookies.get('rememberMe')
+            //     this.ruleForm = {
+            //         user: username === undefined ? this.ruleForm.user : username,
+            //         pass: password === undefined ? this.ruleForm.pass : decrypt(password),
+            //         rememberMe: rememberMe === undefined ? false : Boolean(rememberMe)
+            //     }
+            // },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
@@ -110,7 +110,8 @@
                         }
                     })
                     .then(res => {
-                        if (res.data.code === 1000){
+                        const code = res.data.code
+                        if (code === 1000){
                             // if (this.ruleForm.rememberMe) {
                             //     Cookies.set("username", this.ruleForm.user, { expires: 30 });
                             //     Cookies.set("password", encrypt(this.ruleForm.pass), { expires: 30 });
@@ -131,14 +132,9 @@
                                 message: '登陆成功',
                                 type: 'success'
                             });
+                        } else {
+                            this.$error(code)
                         }
-                    })
-                    .catch(err => {
-                        this.$message({
-                            showClose: true,
-                            message: '登陆失败,请检查账号密码是否正确或联系管理员!',
-                            type: 'error'
-                        });
                     })
             }
         }

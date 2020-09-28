@@ -164,9 +164,9 @@
                 const code = this.ruleForm.code
                 this.$http.post(
                     "/api/register/user",
-                    {},
                     {
-                        params: {
+
+                        'params': {
                             'nikeName': nikeName,
                             'password': password,
                             'phone': phone,
@@ -175,30 +175,19 @@
                         }
                     })
                     .then(res => {
+                        const code = res.data.code
+                        if (code == 1000){
                             this.$message({
                                 showClose: true,
                                 message: '注册成功',
                                 type: 'success'
                             });
                             this.$router.push("/login")
-                        // if (res.data === '注册成功！'){
-                        // } else {
-                        //     this.$message({
-                        //         showClose: true,
-                        //         message: '出现错误,请检查注册信息是否完整或联系管理员!',
-                        //         type: 'error'
-                        //     });
-                        // }
-                    })
-                    .catch(err => {
-                        if (err.request.status == 403){
-                            this.$message({
-                                showClose: true,
-                                message: '出现错误,请检查注册信息是否完整或联系管理员!',
-                                type: 'error'
-                            });
+                        }else{
+                            this.$error(code)
                         }
                     })
+                    // err.request.status == 403
             },
             sendCode() {
                 this.$refs.ruleForm.validateField('phone', phoneError => {
@@ -216,14 +205,12 @@
                 const sms_token = md5(str)
                 this.$http.post(
                     "/api/message/send",
-                    {},
                     {
-                        params: {
+                        'params': {
                             'sms_token': sms_token,
                             'time': time,
                             'phone': this.ruleForm.phone,
-                        }
-                    })
+                        }})
                     .then(res => {
                         console.log(res.request.status)
                         if (res.data.data === 'succeed'){
