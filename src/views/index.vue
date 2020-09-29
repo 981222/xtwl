@@ -4,7 +4,7 @@
             <el-aside class="nav-left scroll" :width="width" v-if="this.login">
                 <el-menu router text-color="#bbbbbb" :collapse="isCollapse"  class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
 
-                    <el-menu-item index="/news" class="nav-home" @click="this.$router.push('/news')">
+                    <el-menu-item index="/news" class="nav-home">
                         <i class="el-icon-s-promotion" style="color: #fff;margin-right: 10px"></i>
                         <span slot="title"><strong>雄途网络系统</strong></span>
                     </el-menu-item>

@@ -8,7 +8,8 @@
                     <span>{{ data.name }}</span>
                     <div class="bottom clearfix">
                         <time class="time">图片数量：{{ data.imgList.length }}</time>
-                        <el-button type="text" class="button" @click="userImageInfo[data.name]['dialogVisible2'] = true">查看图片</el-button>
+                        <el-button type="text" class="button" @click="toRar('AllByName', userImageData, data.name)">下载</el-button>
+                        <el-button type="text" class="button" @click="userImageInfo[data.name]['dialogVisible2'] = true">查看</el-button>
                     </div>
                 </div>
 
@@ -76,7 +77,35 @@
             }
         },
         methods: {
-
+            toRar(method,imageList,name){
+                // const arrImages = []
+                // switch (method) {
+                //     case "All":
+                //         for(let i of imageList.urlList){
+                //             for(let j = 0; j < i.imgList.length; j++){
+                //                 arrImages.push({fileUrl: i['imgList'][j], renameFileName: i.name + "_" + (j + 1).toString() + ".jpg"})
+                //             }
+                //         }
+                //         break;
+                //     case "Select":
+                //         for(let j = 0; j < imageList[name].imageUrls.length; j++){
+                //             arrImages.push({fileUrl: imageList[name]['imageUrls'][j], renameFileName: name + "_" + (j + 1).toString() + ".jpg"})
+                //         }
+                //         break;
+                //     case "AllByName":
+                //         for(let i of imageList.urlList){
+                //             if (i.name === name){
+                //                 for(let j = 0; j < i.imgList.length; j++){
+                //                     arrImages.push({fileUrl: i['imgList'][j], renameFileName: i.name + "_" + (j + 1).toString() + ".jpg"})
+                //                 }
+                //             }
+                //         }
+                //         break;
+                // }
+                // this.loadingSelect = true
+                this.$filesToRar(method, imageList, name)
+                // this.loadingSelect = false
+            }
         }
     };
 </script>

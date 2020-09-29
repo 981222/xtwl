@@ -14,8 +14,9 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button type="success" @click="getImageUrl">立即创建</el-button>
-                    <el-button type="primary" @click="filesToRar('Select')" :loading="loadingSelect">{{ loadingSelect ? '下载中,耗时' + downImgTime.toString() + 's':'下载已选择图片'}}</el-button>
-                    <el-button type="primary" @click="toRar('All')" :loading="loadingAll">{{ loadingAll ? '下载中,耗时' + downImgTime.toString() + 's':'下载全部图片'}}</el-button>
+<!--                    {{ loadingSelect ? '下载中,耗时' + downImgTime.toString() + 's':'下载已选择图片'}}-->
+                    <el-button type="primary" @click="toRar('Select', imageInfo)">下载已选图片</el-button>
+                    <el-button type="primary" @click="toRar('All', imageData)">下载全部图片</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -78,10 +79,9 @@
                         break
                 }
             },
-            toRar(method){
-                this.loadingAll = true
-                this.$filesToRar(method, imageData = this.imageData)
-                this.loadingAll = false
+            toRar(method, imageList, name){
+                // this.loadingSelect = true
+                this.$filesToRar(method, imageList, name)
             },
 
             filesToRar(method) {

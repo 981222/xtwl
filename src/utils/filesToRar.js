@@ -5,8 +5,8 @@ import FileSaver from "file-saver";
 function getImgArrayBuffer(url){
     return new Promise((resolve, reject) => {
         let xmlhttp = new XMLHttpRequest();
-        const imgUrl = "http://0.0.0.0:8761/api/api" + url.substring(30)
-        xmlhttp.open("GET", imgUrl, true);
+        // const imgUrl = "http://localhost:8761/api/api" + url.split('/api')[1]
+        xmlhttp.open("GET", url, true);
         xmlhttp.responseType = "blob";
         // xmlhttp.setAttribute("crossOrigin", "anonymous");
         // console.log(xmlhttp)
@@ -21,7 +21,17 @@ function getImgArrayBuffer(url){
     });
 }
 
-export function filesToRar(method, imageInfo) {
+export function filesToRar(method, imageList, name) {
+    if (imageList == {}){
+        this.$notify.info({
+            title: '下载提示',
+            message: '请选择图片进行下载!'
+        });
+        return;
+    }
+
+    this.$Message('正在下载，请稍等!')
+
     let filename = new Date();
     let month =filename.getMonth() < 9 ? "0" + (filename.getMonth() + 1) : filename.getMonth() + 1;
     let date = filename.getDate() <= 9 ? "0" + filename.getDate() : filename.getDate();
@@ -35,17 +45,31 @@ export function filesToRar(method, imageInfo) {
 
     switch (method) {
         case "All":
-            for(let i of imageData.urlList){
+            for(let i of imageList.urlList){
                 for(let j = 0; j < i.imgList.length; j++){
                     arrImages.push({fileUrl: i['imgList'][j], renameFileName: i.name + "_" + (j + 1).toString() + ".jpg"})
                 }
             }
             break;
         case "Select":
-            for(let i in imageInfo){
-                for(let j = 0; j < imageInfo[i].imageUrls.length; j++){
-                    arrImages.push({fileUrl: imageInfo[i]['imageUrls'][j], renameFileName: i + "_" + (j + 1).toString() + ".jpg"})
+            for(let i in imageList){
+                for(let j = 0; j < imageList[i].imageUrls.length; j++){
+                    arrImages.push({fileUrl: imageList[i]['imageUrls'][j], renameFileName: i + "_" + (j + 1).toString() + ".jpg"})
                 }
+            }
+            break;
+        case "AllByName":
+            for(let i of imageList.urlList){
+                if (i.name === name){
+                    for(let j = 0; j < i.imgList.length; j++){
+                        arrImages.push({fileUrl: i['imgList'][j], renameFileName: i.name + "_" + (j + 1).toString() + ".jpg"})
+                    }
+                }
+            }
+            break;
+        case "SelectByName":
+            for(let j = 0; j < imageList[name].imageUrls.length; j++){
+                arrImages.push({fileUrl: imageList[name]['imageUrls'][j], renameFileName: name + "_" + (j + 1).toString() + ".jpg"})
             }
             break;
     }
@@ -55,11 +79,12 @@ export function filesToRar(method, imageInfo) {
             title: '下载提示',
             message: '请选择图片进行下载!'
         });
-        return "end";
+        return;
     }
-    var setIme = setInterval(() => {
-        downImgTime++;
-    }, 1000);
+
+    // var setIme = setInterval(() => {
+    //     downImgTime++;
+    // }, 1000);
 
     for (let item of arrImages) {
         const promise = getImgArrayBuffer(item.fileUrl).then(data => {
@@ -80,7 +105,7 @@ export function filesToRar(method, imageInfo) {
                     message: '下载成功',
                     type: 'success'
                 });
-                window.clearInterval(setIme);
+                // window.clearInterval(setIme);
                 return "end"
             });
         })

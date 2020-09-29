@@ -8,6 +8,7 @@ import VueJsonp from 'vue-jsonp';
 import axios from 'axios';
 import { error } from './utils/error'
 import { filesToRar } from './utils/filesToRar'
+import { Message } from 'element-ui';
 
 Vue.prototype.$http = axios.create({
   baseURL: '/api',
@@ -30,6 +31,7 @@ Vue.prototype.$http = axios.create({
 
 Vue.prototype.$error = error
 Vue.prototype.$filesToRar = filesToRar
+Vue.prototype.$Message = Message
 
 Vue.use(ElementUI);
 Vue.use(VueJsonp);
