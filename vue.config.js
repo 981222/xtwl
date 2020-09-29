@@ -10,10 +10,6 @@ module.exports = {
                     "^/api": ""
                 }
             },
-            // "/": {
-            //     target: 'http://39.108.238.173:8080',
-            //     changeOrigin: true,
-            // }
         }
     },
     // chainWebpack: config => {

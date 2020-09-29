@@ -82,7 +82,6 @@
                 // this.loadingSelect = true
                 let end = this.$filesToRar(method, imageInfo)
                 if (end){
-                    console.log("秒射")
                     this.loadingSelect = false
                 }
             }

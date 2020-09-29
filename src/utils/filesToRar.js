@@ -5,7 +5,8 @@ import FileSaver from "file-saver";
 function getImgArrayBuffer(url){
     return new Promise((resolve, reject) => {
         let xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", url, true);
+        const imgUrl = "http://0.0.0.0:8761/api/api" + url.substring(30)
+        xmlhttp.open("GET", imgUrl, true);
         xmlhttp.responseType = "blob";
         // xmlhttp.setAttribute("crossOrigin", "anonymous");
         // console.log(xmlhttp)

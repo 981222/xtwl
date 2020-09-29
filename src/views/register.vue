@@ -165,7 +165,6 @@
                 this.$http.post(
                     "/api/register/user",
                     {
-
                         'params': {
                             'nikeName': nikeName,
                             'password': password,

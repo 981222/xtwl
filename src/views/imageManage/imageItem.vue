@@ -62,7 +62,7 @@
                             data['name'] = i['jt_articleno']
                             const ids = []
                             for (var id of i['img_ids']){
-                                ids.push("http://39.108.238.173:8080/api/image/" + id.toString())
+                                ids.push("http://www.xiongzhijiongtu.com:8080/api/image/" + id.toString())
                             }
                             data['imgList'] = ids
                             this.userImageData['urlList'].push(data)

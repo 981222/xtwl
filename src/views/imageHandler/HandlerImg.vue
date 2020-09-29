@@ -179,13 +179,12 @@
                 this.$http.post(
                     "/api/adidas",
                     {
-                            'params': {
-                                'articleno': articlenos,
-                            }
-                        },
-                    {})
+                        'params': {
+                            'articleno': articlenos,
+                        }
+                    })
                     .then(res => {
-                        if(res.data.code == 1000) {
+                        if(res.data.result.code == 1000) {
                             this.$message({
                                 showClose: true,
                                 message: '图片获取成功!',
@@ -193,7 +192,7 @@
                             });
                             this.imageData['urlList'] = []
                             this.imageInfo = {}
-                            for (var i of res.data.data){
+                            for (var i of res.data.result.data){
                                 const data = {}
                                 for (var j in i){
                                     this.$set(this.imageInfo, i[j]['articleno'], {
