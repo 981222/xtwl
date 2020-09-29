@@ -39,17 +39,24 @@
 <!--                        <el-breadcrumb-item>活动详情</el-breadcrumb-item>-->
 <!--                    </el-breadcrumb>-->
 
-                    <el-dropdown router trigger="click" v-if="this.login">
-                        <el-link :underline="false"><el-avatar :size="40" src="https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png"></el-avatar></el-link>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item icon="el-icon-s-promotion"><el-link :underline="false" @click="logout">退出登录</el-link></el-dropdown-item>
-                        </el-dropdown-menu>
-                    </el-dropdown>
+                    <div style="display: flex;align-items: center">
+                        <div>
+                            <div class="text item" style="margin: 0px 0px 6px;">
+                                <router-link to="/userInfo" style="text-decoration: none;color: #000"><strong>{{ username }}</strong></router-link>
+                            </div>
+                            <div class="text item">
+                                <router-link to="/userRecharge" style="text-decoration: none;color: #000"><strong>{{ grade }}</strong></router-link>
+                            </div>
+                        </div>
+                        <el-dropdown router trigger="click" v-if="this.login">
+                                <el-link :underline="false"><el-avatar :size="40" style="margin-left: 10px" src="https://pic3.zhimg.com/v2-ea115b92784802ce3dd9e4a945a912dd_r.jpg?source=1940ef5c"></el-avatar></el-link>
 
-                    <div class="login-register" v-else>
-                        <el-link :underline="false" href="/login">登陆</el-link>
-                        <el-link :underline="false" href="/register">注册</el-link>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item icon="el-icon-s-promotion"><el-link :underline="false" @click="logout">退出登录</el-link></el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
                     </div>
+
                 </el-header>
 <!--                <el-header style="text-align: right; font-size: 12px;box-shadow: rgb(0, 0, 0) 0px 1px 10px -7px;height: 30px!important;line-height: 30px!important;">-->
 <!--                    <div style="float: left">-->
@@ -58,7 +65,7 @@
 <!--                </el-header>-->
 
                 <el-main>
-                    <router-view></router-view>
+                    <router-view :username="username" :email="email" :grade="grade" :phone="phone"></router-view>
                 </el-main>
             </el-container>
 
@@ -85,8 +92,7 @@
             ...mapState(['token'])
         },
         created() {
-            console.log(this.$http.defaults.headers)
-            console.log()
+            // console.log(this.$http.defaults.headers)
             getUserInfo: {
                 this.$http.get("/api/my/info").then(res => {
                     if (res.data.code == 1000){
@@ -107,6 +113,8 @@
                                 this.grade = "免费会员"
                                 break;
                         }
+                    }else{
+                        this.$error(res.data.code,res.data.message)
                     }
                 })
             }
@@ -125,6 +133,8 @@
                             if (res.data.code === 1000){
                                 this.clearToken()
                                 this.$router.push('/login')
+                            } else {
+                                this.$error(res.data.code,res.data.message)
                             }
                       })
             },

@@ -5,7 +5,7 @@
                 <h1 style="text-align: center;margin: 5px;font-size: x-large;">用户登陆</h1>
                 <div style="display: flex;justify-content: center;margin-bottom: 10px">
                     <span>没有账号?</span>
-                    <el-link type="primary" href="/register" style="font-size: 16px;margin-left: 10px">注册</el-link>
+                    <router-link to="/register" style="font-size: 16px;margin-left: 10px;text-decoration: none">注册</router-link>
                 </div>
                 <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
                     <el-form-item prop="user">
@@ -110,8 +110,7 @@
                         }
                     })
                     .then(res => {
-                        const code = res.data.code
-                        if (code === 1000){
+                        if (res.data.code === 1000){
                             // if (this.ruleForm.rememberMe) {
                             //     Cookies.set("username", this.ruleForm.user, { expires: 30 });
                             //     Cookies.set("password", encrypt(this.ruleForm.pass), { expires: 30 });
@@ -133,7 +132,7 @@
                                 type: 'success'
                             });
                         } else {
-                            this.$error(code)
+                            this.$error(res.data.code,res.data.message)
                         }
                     })
             }

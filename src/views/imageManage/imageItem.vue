@@ -47,7 +47,7 @@
         created() {
             getUserImage: {
                 this.$http.get("/api/my/img").then(res => {
-                    if (res.data.code == 200){
+                    if (res.data.code == 1000){
                         this.userImageData['urlList'] = []
                         this.userImageInfo = {}
                         for (var i of res.data.data){
@@ -67,8 +67,10 @@
                             data['imgList'] = ids
                             this.userImageData['urlList'].push(data)
                         }
-                        console.log(this.userImageData)
-                        console.log(this.userImageInfo)
+                        // console.log(this.userImageData)
+                        // console.log(this.userImageInfo)
+                    }else{
+                        this.$error(res.data.code,res.data.message)
                     }
                 })
             }

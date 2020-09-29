@@ -2,22 +2,24 @@
     <div>
         <el-tabs>
             <el-tab-pane label="个人信息">
-                <div class="card" style="float:left;">
-                    <el-avatar :size="100" src="https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png"></el-avatar>
+                <el-card class="box-card">
+                    <div class="card" style="float:left;">
+                        <el-avatar :size="100" src="https://pic3.zhimg.com/v2-ea115b92784802ce3dd9e4a945a912dd_r.jpg?source=1940ef5c"></el-avatar>
 
-                    <div class="text item info">
-                        用户名：{{ username }}
+                        <div class="text item info">
+                            用户名：<span style="float: right">{{ username }}</span>
+                        </div>
+                        <div class="text item info">
+                            会员等级：<span style="float: right">{{ grade }}</span>
+                        </div>
+                        <div class="text item info">
+                            手机号码：<span style="float: right">{{ phone }}</span>
+                        </div>
+                        <div class="text item info">
+                            电子邮箱：<span style="float: right">{{ email }}</span>
+                        </div>
                     </div>
-                    <div class="text item info">
-                        会员等级：{{ grade }}
-                    </div>
-                    <div class="text item info">
-                        手机号码：{{ phone }}
-                    </div>
-                    <div class="text item info">
-                        电子邮箱：{{ email }}
-                    </div>
-                </div>
+                </el-card>
             </el-tab-pane>
             <el-tab-pane label="修改密码">
                 <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
@@ -50,6 +52,7 @@
     import md5 from 'js-md5';
 
     export default {
+        props:['username', 'email', 'phone', 'grade'],
         data(){
             var validateOldPass = (rule, value, callback) => {
                 if (value === '') {
@@ -90,10 +93,6 @@
             return {
                 show: true,
                 countDownTime: '',
-                username: '',
-                email: '',
-                phone: '',
-                grade: '',
                 ruleForm: {
                     pass: '',
                     checkPass: '',
@@ -117,31 +116,8 @@
             }
         },
         created() {
-            // let myEndTime= localStorage.getItem('myEndTime')
-            // myEndTime && this.codeCountDown(myEndTime)
-            getUserInfo: {
-                this.$http.get("/api/my/info").then(res => {
-                    if (res.data.code == 1000){
-                        this.username = res.data.data.nikeName
-                        this.email = res.data.data.email
-                        this.phone = res.data.data.phone
-                        switch (res.data.data.grade) {
-                            case "free":
-                                this.grade = "免费会员"
-                                break;
-                            case "primary":
-                                this.grade = "免费会员"
-                                break;
-                            case "middle":
-                                this.grade = "免费会员"
-                                break;
-                            case "advanced":
-                                this.grade = "免费会员"
-                                break;
-                        }
-                    }
-                })
-            }
+            let myEndTime= localStorage.getItem('myEndTime')
+            myEndTime && this.codeCountDown(myEndTime)
         },
         methods: {
             submitForm(formName) {
@@ -159,14 +135,15 @@
                         {
                             })
                             .then(res => {
-                                console.log(res)
-                                if (res.data.code === '1000'){
+                                if (res.data.result.code === 1000){
                                     this.$message({
                                         showClose: true,
                                         message: '修改成功',
                                         type: 'success'
                                     });
                                     this.$router.push("/news")
+                                }else{
+                                    this.$error(res.data.result.code,res.data.result.message)
                                 }
                             })
                     } else {
@@ -193,22 +170,14 @@
                     },
                     {})
                     .then(res => {
-                        console.log(res)
-                        if (res.data.code === '1000'){
+                        if (res.data.result.code === 1000){
                             this.$message({
                                 showClose: true,
-                                message: '获取成功,手机号' + this.phone.substring(3, 0) + '***' + this.phone.substring(4, 7) + '接收验证码!',
+                                message: '获取成功,手机号' + this.phone.substring(3, 0) + '***' + this.phone.substring(7) + '接收验证码!',
                                 type: 'success'
                             });
-                        }
-                    })
-                    .catch(err => {
-                        if (err.request.status == 403){
-                            this.$message({
-                                showClose: true,
-                                message: '验证码获取失败,请联系管理员!',
-                                type: 'error'
-                            });
+                        }else{
+                            this.$error(res.data.result.code,res.data.result.message)
                         }
                     })
             },
@@ -244,7 +213,7 @@
     .card {
         display: flex;
         /* justify-content: center; */
-        align-items: center;
+        /*align-items: center;*/
         flex-flow: column;
     }
     .info {

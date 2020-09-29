@@ -1,20 +1,23 @@
-export function error(code) {
-  switch (code) {
+import router from '../router'
+
+export function error(code,message) {
+  const strCode = code.toString()
+  switch (strCode) {
     case "1001":
       this.$message({
         showClose: true,
         message: '未找到令牌,请重新登陆',
         type: 'error'
       });
-      this.router.push("/login")
+      router.push("/login")
       break;
     case "1002":
       this.$message({
         showClose: true,
-        message: '令牌已过过期,请重新登陆',
+        message: '令牌已过期,请重新登陆',
         type: 'error'
       });
-      this.router.push("/login")
+      router.push("/login")
       break;
     case "1003":
       this.$message({
@@ -47,7 +50,7 @@ export function error(code) {
     case "1007":
       this.$message({
         showClose: true,
-        message: '未知错误',
+        message: message,
         type: 'error'
       });
       break;

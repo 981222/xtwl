@@ -19,12 +19,12 @@ Vue.use(VueRouter)
 
 const router = new VueRouter({
   mode: 'history',
-  // base: process.env.BASE_URL,
+  base: process.env.BASE_URL + 'xt',
   routes: [
     {
       path: '/',
-      name: '首页',
-      component: Home
+      name: 'xt',
+      component: Login
     },
     {
       path: '/login',
@@ -104,7 +104,7 @@ const router = new VueRouter({
         },
         {
           path: '/userRecharge',
-          name: '充值中心',
+          name: '雄途会员',
           component: UserRecharge
         },
       ]

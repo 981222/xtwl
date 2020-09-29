@@ -11,6 +11,7 @@
                                 v-model="imageInfo[data.name]['checkAll']"
                                 @change="(val) => handleCheckAllChange(val, data)"
                                 border>全选 {{ imageInfo[data.name].imageUrls.length }}/{{ data.imgList.length }}</el-checkbox>
+                        <el-button type="primary" @click="toRar('Select', imageInfo)" :loading="loadingSelect">{{ loadingSelect ? '正在下载':'下载已选择图片'}}</el-button>
                         <el-button type="primary" @click="imageHandler(data.name)">开始拼图</el-button>
                         <el-button type="primary" @click="imageInfo[data.name]['dialogVisible'] = true">预览效果</el-button>
                     </el-form-item>
@@ -52,6 +53,11 @@
             imageInfo: Object,
             imageData: Object,
         },
+        data(){
+          return {
+              loadingSelect: false,
+          }
+        },
         methods: {
             handleCheckAllChange(val, data) {
                 this.imageInfo[data.name]['imageUrls'] = val ? data.imgList : [];
@@ -64,13 +70,21 @@
             },
             imageHandler(name) {
                 // 拼图
-                console.log(this.imageInfo[name]);
+                // console.log(this.imageInfo[name]);
                 alert('开始拼图')
                 // this.$http.get('').then(res => {
                 // })
             },
             checkbox(data){
                 console.log(data)
+            },
+            toRar(method,imageInfo){
+                // this.loadingSelect = true
+                let end = this.$filesToRar(method, imageInfo)
+                if (end){
+                    console.log("秒射")
+                    this.loadingSelect = false
+                }
             }
         }
     };

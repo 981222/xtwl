@@ -15,7 +15,7 @@
                 <el-form-item>
                     <el-button type="success" @click="getImageUrl">立即创建</el-button>
                     <el-button type="primary" @click="filesToRar('Select')" :loading="loadingSelect">{{ loadingSelect ? '下载中,耗时' + downImgTime.toString() + 's':'下载已选择图片'}}</el-button>
-                    <el-button type="primary" @click="filesToRar('All')" :loading="loadingAll">{{ loadingAll ? '下载中,耗时' + downImgTime.toString() + 's':'下载全部图片'}}</el-button>
+                    <el-button type="primary" @click="toRar('All')" :loading="loadingAll">{{ loadingAll ? '下载中,耗时' + downImgTime.toString() + 's':'下载全部图片'}}</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -78,6 +78,12 @@
                         break
                 }
             },
+            toRar(method){
+                this.loadingAll = true
+                this.$filesToRar(method, imageData = this.imageData)
+                this.loadingAll = false
+            },
+
             filesToRar(method) {
                 let filename = new Date();
                 let month =filename.getMonth() < 9 ? "0" + (filename.getMonth() + 1) : filename.getMonth() + 1;
@@ -154,7 +160,6 @@
             },
             //获取文件blob
             getImgArrayBuffer(url) {
-                let _this = this;
                 return new Promise((resolve, reject) => {
                     let xmlhttp = new XMLHttpRequest();
                     xmlhttp.open("GET", url, true);
@@ -169,18 +174,18 @@
                     xmlhttp.send();
                 });
             },
+
             getAdidasImage(articlenos) {
                 this.$http.post(
                     "/api/adidas",
-                    {},
                     {
-                        params: {
-                            'articleno': articlenos,
-                        }
-                    })
+                            'params': {
+                                'articleno': articlenos,
+                            }
+                        },
+                    {})
                     .then(res => {
-                        const code = res.data.code
-                        if(code == 1000) {
+                        if(res.data.code == 1000) {
                             this.$message({
                                 showClose: true,
                                 message: '图片获取成功!',
@@ -209,7 +214,7 @@
                             }
                             // console.log(this.imageData)
                         }else{
-                            this.$error(code)
+                            this.$error(res.data.code,res.data.message)
                         }
                     })
             }

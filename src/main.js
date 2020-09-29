@@ -6,7 +6,8 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueJsonp from 'vue-jsonp';
 import axios from 'axios';
-import error from './utils/error'
+import { error } from './utils/error'
+import { filesToRar } from './utils/filesToRar'
 
 Vue.prototype.$http = axios.create({
   baseURL: '/api',
@@ -28,6 +29,7 @@ Vue.prototype.$http = axios.create({
 })
 
 Vue.prototype.$error = error
+Vue.prototype.$filesToRar = filesToRar
 
 Vue.use(ElementUI);
 Vue.use(VueJsonp);

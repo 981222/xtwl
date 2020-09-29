@@ -5,7 +5,7 @@
                 <h1 style="text-align: center;margin: 5px;font-size: x-large;">用户注册</h1>
                 <div style="display: flex;justify-content: center;margin-bottom: 10px">
                     <span>已拥有账号?</span>
-                    <el-link type="primary" href="/login" style="font-size: 16px;margin-left: 10px">登陆</el-link>
+                    <router-link to="/login" style="font-size: 16px;margin-left: 10px;text-decoration: none">登陆</router-link>
                 </div>
                 <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
                     <el-form-item prop="user">
@@ -175,8 +175,7 @@
                         }
                     })
                     .then(res => {
-                        const code = res.data.code
-                        if (code == 1000){
+                        if (res.data.result.code == 1000){
                             this.$message({
                                 showClose: true,
                                 message: '注册成功',
@@ -184,7 +183,7 @@
                             });
                             this.$router.push("/login")
                         }else{
-                            this.$error(code)
+                            this.$error(res.data.result.code,res.data.result.message)
                         }
                     })
                     // err.request.status == 403
@@ -206,34 +205,21 @@
                 this.$http.post(
                     "/api/message/send",
                     {
-                        'params': {
-                            'sms_token': sms_token,
-                            'time': time,
-                            'phone': this.ruleForm.phone,
-                        }})
+                            'params': {
+                                'sms_token': sms_token,
+                                'time': time,
+                                'phone': this.ruleForm.phone,
+                            }
+                        })
                     .then(res => {
-                        console.log(res.request.status)
-                        if (res.data.data === 'succeed'){
+                        if (res.data.result.code == 1000){
                             this.$message({
                                 showClose: true,
-                                message: '获取成功,请等待片刻...',
+                                message: '获取成功,手机号' + this.ruleForm.phone.toString().substring(3, 0) + '***' + this.ruleForm.phone.toString().substring(7) + '接收验证码!',
                                 type: 'success'
                             });
                         } else {
-                            this.$message({
-                                showClose: true,
-                                message: '未知错误!',
-                                type: 'warning'
-                            });
-                        }
-                    })
-                    .catch(err => {
-                        if (err.request.status == 403){
-                            this.$message({
-                                showClose: true,
-                                message: '验证码获取失败,请检查手机号或联系管理员!',
-                                type: 'error'
-                            });
+                            this.$error(res.data.result.code,res.data.result.message)
                         }
                     })
             },
