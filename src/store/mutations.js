@@ -9,10 +9,13 @@ export default {
         localStorage.setItem('token', '')
         state.token = ''
     },
-    updateImageData(state, imageData) {
-        state.imageData = imageData
-    },
-    updateImageInfo(state, imageInfo) {
-        state.imageInfo = imageInfo
-    }
+    // getSearchForArticleno(state, articleno) {
+    //     state.searchForArticleno = articleno
+    // }
+    // updateImageData(state, imageData) {
+    //     state.imageData = imageData
+    // },
+    // updateImageInfo(state, imageInfo) {
+    //     state.imageInfo = imageInfo
+    // }
 }

@@ -9,6 +9,7 @@ import axios from 'axios';
 import { error } from './utils/error'
 import { filesToRar } from './utils/filesToRar'
 import { Message } from 'element-ui';
+import global from './components/utils/global.vue';
 
 Vue.prototype.$http = axios.create({
   baseURL: '/api',
@@ -29,6 +30,7 @@ Vue.prototype.$http = axios.create({
   }
 })
 
+Vue.prototype.$GLOBAL = global
 Vue.prototype.$error = error
 Vue.prototype.$filesToRar = filesToRar
 Vue.prototype.$Message = Message

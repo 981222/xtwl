@@ -1,12 +1,14 @@
 <template>
-    <div id="app" ref="app">
-        <el-container>
+    <div id="app">
+        <el-container :class="shrinkC" ref="app">
             <el-aside class="nav-left scroll" :width="width" v-if="this.login">
                 <el-menu router text-color="#bbbbbb" :collapse="isCollapse"  class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
 
                     <el-menu-item index="/news" class="nav-home">
-                        <i class="el-icon-s-promotion" style="color: #fff;margin-right: 10px"></i>
-                        <span slot="title"><strong>雄途网络系统</strong></span>
+<!--                        <i class="el-icon-s-promotion" style="color: #fff;margin-right: 10px"></i>-->
+                        <i><img :src="logo" alt="" style="height: 18px;width: 18px;"></i>
+
+                        <span slot="title" style="color: #fff;padding-left: 10px;"><strong>雄途网络系统</strong></span>
                     </el-menu-item>
 
                     <el-submenu v-for="(item,index) in $router.options.routes" :key="index" :index="index+''" v-if="item.show">
@@ -27,9 +29,8 @@
             <el-container>
                 <el-header class="header1">
 
-                    <div class="fold" ref="isCollapse" @click="isCollapseClick">
-                        <i class="el-icon-s-operation" v-if="isCollapse"></i>
-                        <i class="el-icon-s-operation" v-else=""></i>
+                    <div class="fold" ref="isCollapse" @click="shrink">
+                        <i class="el-icon-s-operation"></i>
                     </div>
 
 <!--                    <el-breadcrumb separator="/">-->
@@ -74,6 +75,7 @@
 </template>
 
 <script>
+    import logoIcon from "../assets/logo.png"
     import {mapGetters, mapMutations, mapState} from "vuex";
 
     export default {
@@ -85,6 +87,8 @@
                 email: '',
                 phone: '',
                 grade: '',
+                logo: logoIcon,
+                shrinkC: 'shrinkLong'
             }
         },
         computed: {
@@ -138,14 +142,18 @@
                             }
                       })
             },
-            isCollapseClick(){
-                this.isCollapse =! this.isCollapse
-                if (this.$refs.app.getBoundingClientRect().x == 200){
-                    this.$refs.app.style.marginLeft = "64px";
-                } else if (this.$refs.app.getBoundingClientRect().x == 64){
-                    this.$refs.app.style.marginLeft = "200px";
+            shrink(){
+                this.isCollapse = !this.isCollapse
+                if (this.shrinkC == 'shrinkLong'){
+                    this.shrinkC = 'shrinkShort'
+                }else{
+                    this.shrinkC = 'shrinkLong'
                 }
-
+                // if (this.$refs.app.getBoundingClientRect().x == 200){
+                //     this.$refs.app.style.marginLeft = "64px";
+                // } else if (this.$refs.app.getBoundingClientRect().x == 64){
+                //     this.$refs.app.style.marginLeft = "200px";
+                // }
             }
         }
     };
@@ -154,12 +162,25 @@
 <style scoped>
     #app {
         /*margin-top: 60px;*/
-        margin-left: 200px;
+        /*margin-left: 200px;*/
         padding: 0px;
+    }
+    .shrinkLong {
+        margin-left: 200px;
         transition: all 300ms linear 0ms;
         -o-transition: all 300ms linear 0ms; /*兼容parsto内核*/
         -moz-transition: all 300ms linear 0ms; /*兼容gecko内核*/
         -webkit-transition: all 300ms linear 0ms; /*兼容webkit内核*/
+    }
+    .shrinkShort {
+        margin-left: 64px;
+        transition: all 300ms linear 0ms;
+        -o-transition: all 300ms linear 0ms; /*兼容parsto内核*/
+        -moz-transition: all 300ms linear 0ms; /*兼容gecko内核*/
+        -webkit-transition: all 300ms linear 0ms; /*兼容webkit内核*/
+    }
+    /deep/ .el-tooltip {
+        text-align: center;
     }
     .user-info /deep/ .el-menu-item {
         /*text-align: center!important;*/

@@ -1,69 +1,51 @@
 <template>
     <div>
-        <el-tabs>
-            <el-tab-pane label="个人信息">
-                <el-card class="box-card">
-                    <div class="card" style="float:left;">
-                        <el-avatar :size="100" src="https://pic3.zhimg.com/v2-ea115b92784802ce3dd9e4a945a912dd_r.jpg?source=1940ef5c"></el-avatar>
-
-                        <div class="text item info">
-                            用户名：<span style="float: right">{{ username }}</span>
-                        </div>
-                        <div class="text item info">
-                            会员等级：<span style="float: right">{{ grade }}</span>
-                        </div>
-                        <div class="text item info">
-                            手机号码：<span style="float: right">{{ phone }}</span>
-                        </div>
-                        <div class="text item info">
-                            电子邮箱：<span style="float: right">{{ email }}</span>
-                        </div>
-                    </div>
-                </el-card>
-            </el-tab-pane>
-            <el-tab-pane label="修改密码">
-                <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-                    <el-form-item label="旧密码" prop="oldPass">
-                        <el-input type="password" v-model.number="ruleForm.oldPass" placeholder="旧密码">
+        <el-row class="login">
+            <el-col class="demo-ruleForm">
+                <h1 style="text-align: center;margin: 5px;font-size: x-large;">修改密码</h1>
+                <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
+                    <el-form-item prop="username">
+                        <el-input type="text" v-model="ruleForm.username" autocomplete="off" placeholder="用户名">
+                            <i slot="prefix" class="el-icon-user-solid" />
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item prop="pass">
+                        <el-input type="password" v-model="ruleForm.pass" autocomplete="off" placeholder="密码">
                             <i slot="prefix" class="el-icon-lock" />
                         </el-input>
                     </el-form-item>
-                    <el-form-item label="新密码" prop="pass">
-                        <el-input type="password" v-model="ruleForm.pass" autocomplete="off" placeholder="新密码">
+                    <el-form-item prop="checkPass">
+                        <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off" placeholder="再次输入密码">
                             <i slot="prefix" class="el-icon-lock" />
                         </el-input>
                     </el-form-item>
-                    <el-form-item label="确认新密码" prop="checkPass">
-                        <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off" placeholder="确认新密码">
-                            <i slot="prefix" class="el-icon-lock" />
-                        </el-input>
-                    </el-form-item>
-                    <el-form-item label="验证码"  prop="code">
+                    <el-form-item prop="code">
                         <el-input type="text" v-model="ruleForm.code" autocomplete="off" placeholder="验证码">
                             <i slot="prefix" class="el-icon-position" />
                         </el-input>
-                        <el-button type="primary" style="width: 100%" @click="sendCode" v-if="show">获取验证码</el-button>
-                        <el-button type="primary" style="width: 100%" disabled v-else>{{ countDownTime }} s</el-button>
+                        <el-button type="primary" @click="sendCode" v-if="show">获取验证码</el-button>
+                        <el-button type="primary" disabled v-else>{{ countDownTime }} s</el-button>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" style="width: 100%" @click="submitForm('ruleForm')">提交</el-button>
-<!--                        <el-button @click="resetForm('ruleForm')">重置</el-button>-->
+                        <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>
+                        <el-button @click="resetForm('ruleForm')">重置</el-button>
                     </el-form-item>
                 </el-form>
-            </el-tab-pane>
-        </el-tabs>
+            </el-col>
+        </el-row>
     </div>
 </template>
 
 <script>
-    import md5 from 'js-md5';
+    import md5 from "js-md5";
 
     export default {
-        props:['username', 'email', 'phone', 'grade'],
-        data(){
-            var validateOldPass = (rule, value, callback) => {
+        data() {
+            var validateUsername = (rule, value, callback) => {
                 if (value === '') {
-                    return callback(new Error('请输入旧密码'));
+                    callback(new Error('请输入用户名'));
+                } else if (/[\u4E00-\u9FA5]/g.test(value)){
+                    callback(new Error('禁止使用中文字符,请重新输入'));
                 } else {
                     callback();
                 }
@@ -100,21 +82,22 @@
             return {
                 show: true,
                 countDownTime: '',
+                sms_token: '',
                 ruleForm: {
+                    username: '',
                     pass: '',
                     checkPass: '',
-                    oldPass: '',
                     code: ''
                 },
                 rules: {
+                    username: [
+                        { validator: validateUsername, trigger: 'blur' }
+                    ],
                     pass: [
                         { validator: validatePass, trigger: 'blur' }
                     ],
                     checkPass: [
                         { validator: validatePass2, trigger: 'blur' }
-                    ],
-                    oldPass: [
-                        { validator: validateOldPass, trigger: 'blur' }
                     ],
                     code: [
                         { required: true, validator: validateCode, trigger: 'blur' }
@@ -134,12 +117,12 @@
                             "/api/rest/password",
                             {
                                 'params': {
-                                    'login': this.username,
+                                    'login': this.ruleForm.username,
                                     'password': this.ruleForm.pass,
                                     'code': this.ruleForm.code,
                                 }
                             },
-                        {
+                            {
                             })
                             .then(res => {
                                 if (res.data.result.code === 1000){
@@ -162,15 +145,16 @@
             resetForm(formName) {
                 this.$refs[formName].resetFields();
             },
+
             getCode(){
                 const time = new Date().getTime().toString()
-                const str = time + this.username + this.$store.state.DEFAULT_NUM
+                const str = time + this.ruleForm.username + this.$store.state.DEFAULT_NUM
                 const sms_token = md5(str)
                 this.$http.post(
                     "/api/rest/message",
                     {
                         'params': {
-                            'login': this.username,
+                            'login': this.ruleForm.username,
                             'sms_token': sms_token,
                             'time': time,
                         }
@@ -180,7 +164,7 @@
                         if (res.data.result.code === 1000){
                             this.$message({
                                 showClose: true,
-                                message: '获取成功,手机号' + this.phone.substring(3, 0) + '***' + this.phone.substring(7) + '接收验证码!',
+                                message: '获取成功,等待验证码发送!',
                                 type: 'success'
                             });
                         }else{
@@ -217,17 +201,8 @@
 </script>
 
 <style scoped>
-    .card {
-        display: flex;
-        /* justify-content: center; */
-        /*align-items: center;*/
-        flex-flow: column;
-    }
-    .info {
-        border-bottom: 1px solid #ffcfcf;
-        margin: 10px;
-    }
-    /deep/ .el-input__prefix {
-         left: 10px!important;
+
+    /deep/ .el-form-item__content {
+        display: flex!important;
     }
 </style>

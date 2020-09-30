@@ -1,22 +1,22 @@
 <template>
     <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="耐克" name="nike">
+        <el-tab-pane label="耐克" :name="this.$GLOBAL.BRAND_NIKE">
 <!--            :imageData="'nike' === imageData.name ? imageData : {}" :imageInfo="imageInfo"-->
             <HandlerImg :name="activeName"></HandlerImg>
         </el-tab-pane>
-        <el-tab-pane label="阿迪达斯" name="adidas">
+        <el-tab-pane label="阿迪达斯" :name="this.$GLOBAL.BRAND_ADIDAS">
             <HandlerImg :name="activeName"></HandlerImg>
         </el-tab-pane>
-        <el-tab-pane label="天马" name="tianma">
+        <el-tab-pane label="天马" :name="this.$GLOBAL.BRAND_TIANMA">
             <HandlerImg :name="activeName"></HandlerImg>
         </el-tab-pane>
-        <el-tab-pane label="彪马" name="puma">
+        <el-tab-pane label="彪马" :name="this.$GLOBAL.BRAND_PUMA">
             <HandlerImg :name="activeName"></HandlerImg>
         </el-tab-pane>
-        <el-tab-pane label="匡威" name="converse">
+        <el-tab-pane label="匡威" :name="this.$GLOBAL.BRAND_CONVERSE">
             <HandlerImg :name="activeName"></HandlerImg>
         </el-tab-pane>
-        <el-tab-pane label="斯凯奇" name="skechers">
+        <el-tab-pane label="斯凯奇" :name="this.$GLOBAL.BRAND_SKECHERS">
             <HandlerImg :name="activeName"></HandlerImg>
         </el-tab-pane>
     </el-tabs>
@@ -29,7 +29,7 @@
     export default {
         data() {
             return {
-                activeName: 'nike',
+                activeName: this.$GLOBAL.BRAND_NIKE,
                 // imageInfo: this.$store.state.imageInfo,
                 // imageData: this.$store.state.imageData,
             };

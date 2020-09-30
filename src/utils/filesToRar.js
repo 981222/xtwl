@@ -21,7 +21,7 @@ function getImgArrayBuffer(url){
     });
 }
 
-export function filesToRar(method, imageList, name) {
+export function filesToRar(method, imageList, name, callback) {
     if (imageList == {}){
         this.$notify.info({
             title: '下载提示',
@@ -79,6 +79,7 @@ export function filesToRar(method, imageList, name) {
             title: '下载提示',
             message: '请选择图片进行下载!'
         });
+        callback(method)
         return;
     }
 
@@ -106,7 +107,7 @@ export function filesToRar(method, imageList, name) {
                     type: 'success'
                 });
                 // window.clearInterval(setIme);
-                return "end"
+                callback(method)
             });
         })
         .catch(res => {
@@ -114,6 +115,6 @@ export function filesToRar(method, imageList, name) {
                 title: '错误',
                 message: '下载失败'
             });
-            return "end"
+            callback(method)
         });
 }

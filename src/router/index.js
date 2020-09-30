@@ -1,11 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/index/home.vue'
-// import Adidas from '../views/adidas.vue'
 import Brand from '../views/imageHandler/Brand.vue'
-// import Tianma from '../views/tianma.vue'
 import Index from '../views/index.vue'
 import UserInfo from '../views/user/userInfo.vue'
+import ChangePass from '../views/changePass.vue'
 import WaterMark from '../views/user/waterMark.vue'
 import Login from '../views/login.vue'
 import Register from '../views/register.vue'
@@ -30,6 +29,11 @@ const router = new VueRouter({
       path: '/login',
       name: '登陆',
       component: Login
+    },
+    {
+      path: '/changePass',
+      name: '修改密码',
+      component: ChangePass
     },
     {
       path: '/register',
@@ -128,7 +132,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, form, next) => {
-  if (to.path === '/login' || to.path === '/' || to.path === '/register') return next()
+  if (to.path === '/login' || to.path === '/' || to.path === '/register' || to.path === '/changePass') return next()
   const token = localStorage.getItem("token")
   if (!token) return next('/login')
   next()

@@ -18,12 +18,11 @@
                             <i slot="prefix" class="el-icon-lock" />
                         </el-input>
                     </el-form-item>
+                    <router-link to="/changePass" style="text-decoration: none;">忘记密码?</router-link>
 <!--                    <el-checkbox v-model="ruleForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>-->
-                    <el-form-item>
-                        <el-button type="primary"
-                                   @click="submitForm('ruleForm')"
-                                   style="width:100%;">登陆</el-button>
-                    </el-form-item>
+                    <el-button type="primary"
+                               @click="submitForm('ruleForm')"
+                               style="width:100%;margin-top: 10px">登陆</el-button>
                 </el-form>
             </el-col>
         </el-row>
@@ -45,7 +44,7 @@
             };
             var validateUser = (rule, value, callback) => {
                 if (value === '') {
-                    callback(new Error('请输入用户名或邮箱'));
+                    callback(new Error('请输入用户名'));
                 } else {
                     callback();
                 }

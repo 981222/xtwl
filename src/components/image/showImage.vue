@@ -11,7 +11,7 @@
                                 v-model="imageInfo[data.name]['checkAll']"
                                 @change="(val) => handleCheckAllChange(val, data)"
                                 border>全选 {{ imageInfo[data.name].imageUrls.length }}/{{ data.imgList.length }}</el-checkbox>
-                        <el-button type="primary" @click="toRar('SelectByName', imageInfo, data.name)">下载已选图片</el-button>
+                        <el-button type="primary" @click="toRar('SelectByName', imageInfo, data.name)" :loading="loadingSelect">{{ loadingSelect ? '正在下载...':'下载已选图片' }}</el-button>
                         <el-button type="primary" @click="imageHandler(data.name)">开始拼图</el-button>
                         <el-button type="primary" @click="imageInfo[data.name]['dialogVisible'] = true">预览效果</el-button>
                     </el-form-item>
@@ -24,7 +24,6 @@
                                 <img class="image":key="index" :src="url">
                                 <div class="checkboxIcon">
                                     <i class="iconfont icon-xuanzhong"></i>
-<!--                                    <svg width="24" height="24" t="1601017752197" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1149"><path d="M0 640.9C94.2 584.7 188.4 528.5 282.6 472.2c45.5 87.1 91.2 174.4 136.7 261.5 0.1 0.1 118.7-250.8 222.1-389.5C751.3 196.7 842.9 86.4 993.7 27c-16.3 46.4-20.8 89.6-20.8 162 2.6 57.5 13.3 112.7 50.7 199.5-72.7 33.5-140.7 76.2-175.6 106.3-48.3 41.7-92.5 89.6-136.8 136C611.3 745 559.6 810 437 996.5c-90.9-109.9-115.3-132.2-186.3-194.1C164.8 727.6 116.6 697.6 0 640.9z m0 0" p-id="1150"></path></svg>-->
                                 </div>
                             </div>
                         </el-checkbox>
@@ -75,14 +74,14 @@
                 // this.$http.get('').then(res => {
                 // })
             },
-            checkbox(data){
-                console.log(data)
+            evol(){
+                this.loadingSelect = false
             },
             toRar(method,imageList,name){
-                // this.loadingSelect = true
-                this.$filesToRar(method, imageList, name)
+                this.loadingSelect = true
+                this.$filesToRar(method, imageList, name, this.evol)
                 // this.loadingSelect = false
-            }
+            },
         }
     };
 </script>

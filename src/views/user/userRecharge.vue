@@ -23,19 +23,19 @@
                             <el-radio-group v-model="joinMember">
                                 <el-radio-button label="primary">
                                     <p><strong>初级会员</strong></p>
-                                    <p><strong>￥59</strong></p>
+                                    <p><strong>￥???</strong></p>
                                 </el-radio-button>
                                 <el-radio-button label="middle">
                                     <p><strong>中级会员</strong></p>
-                                    <p><strong>￥99</strong></p>
+                                    <p><strong>￥???</strong></p>
                                 </el-radio-button>
                                 <el-radio-button label="advance">
                                     <p><strong>高级会员</strong></p>
-                                    <p><strong>￥199</strong></p>
+                                    <p><strong>￥???</strong></p>
                                 </el-radio-button>
                                 <el-radio-button label="supreme">
                                     <p><strong>尊享会员</strong></p>
-                                    <p><strong>￥399</strong></p>
+                                    <p><strong>￥???</strong></p>
                                 </el-radio-button>
                             </el-radio-group>
                         </div>
@@ -92,7 +92,7 @@
     }
 
     /deep/ .el-radio-button__inner {
-        margin-left: 20px;
+        margin-right: 20px;
         border: 1px solid #DCDFE6;
         border-radius: 4px;
     }
@@ -100,6 +100,6 @@
         margin-left: 10px!important;
     }
     /deep/ .el-radio__label {
-         padding-left: 0px!important;
+        padding-left: 0px!important;
     }
 </style>

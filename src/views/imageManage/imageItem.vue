@@ -8,8 +8,11 @@
                     <span>{{ data.name }}</span>
                     <div class="bottom clearfix">
                         <time class="time">图片数量：{{ data.imgList.length }}</time>
-                        <el-button type="text" class="button" @click="toRar('AllByName', userImageData, data.name)">下载</el-button>
-                        <el-button type="text" class="button" @click="userImageInfo[data.name]['dialogVisible2'] = true">查看</el-button>
+                        <div style="display: flex;">
+                            <el-button type="text" class="button" @click="userImageInfo[data.name]['dialogVisible2'] = true">查看</el-button>
+                            <el-button type="text" class="button" @click="toRar('AllByName', userImageData, data.name)">下载</el-button>
+                            <el-button type="text" class="button" @click="deleteImage(data.name)">删除</el-button>
+                        </div>
                     </div>
                 </div>
 
@@ -29,14 +32,13 @@
 
 <script>
     import showImage from "../../components/image/showImage";
+    import bus from "../../utils/bus";
 
     export default {
         data() {
             return {
                 userImageInfo: {},
-                userImageData: {
-                    urlList:[]
-                }
+                userImageData: { urlList:[] }
             };
         },
         components:{ showImage },
@@ -46,12 +48,43 @@
             // userImageInfo: Object,
         },
         created() {
-            getUserImage: {
-                this.$http.get("/api/my/img").then(res => {
-                    if (res.data.code == 1000){
+            this.getUserImage(this.name)
+        },
+        methods: {
+            toRar(method,imageList,name){
+                this.$filesToRar(method, imageList, name)
+            },
+            deleteImage(name){
+                this.$http.post(
+                    "/api/delete/img",
+                    {
+                        'params': {
+                            'articleno': [name],
+                        }
+                    }).then(res => {
+                        if (res.data.result.code == 1000){
+                            this.$Message.success("删除成功!")
+                            for (var i of this.userImageData.urlList){
+                                console.log(i)
+                            }
+
+                        }else{
+                            this.$error(res.data.result.code, res.data.result.message)
+                        }
+                })
+            },
+            getUserImage() {
+                this.$http.post(
+                    "/api/my/img",
+                    {
+                        'params': {
+                            'type': this.name,
+                        }
+                    }).then(res => {
+                    if (res.data.result.code == 1000){
                         this.userImageData['urlList'] = []
                         this.userImageInfo = {}
-                        for (var i of res.data.data){
+                        for (var i of res.data.result.data){
                             const data = {}
                             this.$set(this.userImageInfo, i['jt_articleno'], {
                                 checkAll: false,
@@ -71,41 +104,48 @@
                         // console.log(this.userImageData)
                         // console.log(this.userImageInfo)
                     }else{
-                        this.$error(res.data.code,res.data.message)
+                        this.$error(res.data.result.code,res.data.result.message)
                     }
                 })
-            }
+            },
         },
-        methods: {
-            toRar(method,imageList,name){
-                // const arrImages = []
-                // switch (method) {
-                //     case "All":
-                //         for(let i of imageList.urlList){
-                //             for(let j = 0; j < i.imgList.length; j++){
-                //                 arrImages.push({fileUrl: i['imgList'][j], renameFileName: i.name + "_" + (j + 1).toString() + ".jpg"})
-                //             }
-                //         }
-                //         break;
-                //     case "Select":
-                //         for(let j = 0; j < imageList[name].imageUrls.length; j++){
-                //             arrImages.push({fileUrl: imageList[name]['imageUrls'][j], renameFileName: name + "_" + (j + 1).toString() + ".jpg"})
-                //         }
-                //         break;
-                //     case "AllByName":
-                //         for(let i of imageList.urlList){
-                //             if (i.name === name){
-                //                 for(let j = 0; j < i.imgList.length; j++){
-                //                     arrImages.push({fileUrl: i['imgList'][j], renameFileName: i.name + "_" + (j + 1).toString() + ".jpg"})
-                //                 }
-                //             }
-                //         }
-                //         break;
-                // }
-                // this.loadingSelect = true
-                this.$filesToRar(method, imageList, name)
-                // this.loadingSelect = false
-            }
+
+        mounted() {
+            bus.$on("search", articleno => {
+                this.$http.post(
+                    "/api/my/img_search",
+                    {
+                        'params': {
+                            'articleno': articleno,
+                        }
+                    }).then(res => {
+                    if (res.data.result.code == 1000){
+                        this.userImageData['urlList'] = []
+                        this.userImageInfo = {}
+                        for (var i of res.data.result.data){
+                            const data = {}
+                            this.$set(this.userImageInfo, i['jt_articleno'], {
+                                checkAll: false,
+                                isIndeterminate: false,
+                                dialogVisible: false,
+                                dialogVisible2: false,
+                                imageUrls: [],
+                            })
+                            data['name'] = i['jt_articleno']
+                            const ids = []
+                            for (var id of i['img_ids']){
+                                ids.push("http://www.xiongzhijiongtu.com:8080/api/image/" + id.toString())
+                            }
+                            data['imgList'] = ids
+                            this.userImageData['urlList'].push(data)
+                        }
+                        // console.log(this.userImageData)
+                        // console.log(this.userImageInfo)
+                    }else{
+                        this.$error(res.data.result.code,res.data.result.message)
+                    }
+                })
+            })
         }
     };
 </script>
@@ -117,8 +157,7 @@
     }
 
     .bottom {
-        margin-top: 5px;
-        line-height: 35px;
+        line-height: 30px;
     }
 
     .button {

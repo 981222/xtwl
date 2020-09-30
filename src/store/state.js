@@ -33,14 +33,6 @@ try {
 
 export default {
     token: defaultToken,
-    // imageInfo: {},
-    // imageData: {
-    //     name: 'nike',
-    //     urlList: [],
-    // },
     DEFAULT_NUM: '6862577',
-    // username: defaultUsername,
-    // email: defaultEmail,
-    // phone: defaultPhone,
-    // grade: defaultGrade,
+    // searchForArticleno: '',
 }
