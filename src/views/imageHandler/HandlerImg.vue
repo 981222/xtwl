@@ -4,14 +4,15 @@
             <el-form ref="form" :model="form" label-width="80px">
                 <el-form-item label="输入货号">
                     <el-popover
+                            style="margin-right: 10px"
                             placement="top-start"
                             title="提示"
                             width="400"
                             trigger="hover"
-                            content="请输入完整货号，货号之间使用空格间隔，为了保证速度请不要一次性获取过多货号。">
+                            content="请输入完整货号，货号之间使用空格间隔，为了保证速度每次请求只能接收最多5个货号。">
                         <i slot="reference" class="el-icon-question"></i>
                     </el-popover>
-                    <el-input v-model="form.name" placeholder="请输入货号"></el-input>
+                    <el-input style="width: 80%" v-model="form.name" placeholder="请输入货号"></el-input>
                 </el-form-item>
                 <el-form-item label="选择通道">
                     <el-radio-group v-model="form.resource">
@@ -39,6 +40,13 @@
 
     export default {
         data() {
+            var validateName = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入货号'));
+                } else {
+                    callback();
+                }
+            };
             return {
                 handlerLoading: false,
                 loadingSelect: false,
@@ -48,6 +56,11 @@
                 form: {
                     name: '',
                     resource: '通道一'
+                },
+                rules: {
+                    name: [
+                        { validator: validateName, trigger: 'blur' }
+                    ],
                 },
                 arrImages: [],
                 imageData: {name: this.name, urlList: [],},
@@ -95,7 +108,6 @@
                         alert("斯凯奇下载通道尚未开启!")
                         break
                 }
-
             },
             evol(method){
                 if (method.indexOf('All') == 0){

@@ -148,6 +148,7 @@
                     }
                 })
             })
+            bus.off("search");
         }
     };
 </script>
