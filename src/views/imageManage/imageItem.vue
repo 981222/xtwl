@@ -64,8 +64,10 @@
                     }).then(res => {
                         if (res.data.result.code == 1000){
                             this.$Message.success("删除成功!")
-                            for (var i of this.userImageData.urlList){
-                                console.log(i)
+                            for (var i = 0; i < this.userImageData.urlList.length; i++){
+                                if(this.userImageData.urlList[i].name == name){
+                                    this.userImageData.urlList.splice(i,1)
+                                }
                             }
 
                         }else{
