@@ -1,10 +1,9 @@
 <template>
     <div style="border-radius: 4px;box-shadow: rgb(0, 0, 0) 0px 0px 10px -7px;">
         <div style="margin-bottom: 20px;padding: 20px;">
-            <el-form ref="form" :model="form" label-width="80px">
-                <el-form-item label="输入货号">
+            <el-form ref="form" :model="form" label-width="80px"  :rules="rules">
+                <el-form-item prop="name" label="输入货号">
                     <el-popover
-                            style="margin-right: 10px"
                             placement="top-start"
                             title="提示"
                             width="400"
@@ -12,7 +11,7 @@
                             content="请输入完整货号，货号之间使用空格间隔，为了保证速度每次请求只能接收最多5个货号。">
                         <i slot="reference" class="el-icon-question"></i>
                     </el-popover>
-                    <el-input style="width: 80%" v-model="form.name" placeholder="请输入货号"></el-input>
+                    <el-input style="width: 80%;margin-left: 10px" v-model="form.name" placeholder="请输入货号"></el-input>
                 </el-form-item>
                 <el-form-item label="选择通道">
                     <el-radio-group v-model="form.resource">
@@ -41,8 +40,18 @@
     export default {
         data() {
             var validateName = (rule, value, callback) => {
+                let alist = value.split(' ')
+                let count = []
+                for(var i = 0; i < alist.length; i++){
+                    if(alist[i] == ''){
+                        continue
+                    }
+                    count.push(alist[i])
+                }
                 if (value === '') {
                     callback(new Error('请输入货号'));
+                } else if (count.length > 5){
+                    callback(new Error('输入货号过多,请缩减至5个以内'));
                 } else {
                     callback();
                 }
@@ -77,11 +86,18 @@
         },
         methods: {
             loading() {
-                this.handlerLoading = true;
-                this.setIme = setInterval(() => {
-                    this.downImgTime++;
-                }, 1000);
-                this.getImageUrl()
+                this.$refs["form"].validate((valid) => {
+                    if (valid) {
+                        this.handlerLoading = true;
+                        this.setIme = setInterval(() => {
+                            this.downImgTime++;
+                        }, 1000);
+                        this.getImageUrl()
+                    } else {
+                        // console.log('error submit!!');
+                        return false;
+                    }
+                });
             },
             getImageUrl() {
                 // 获取图片
@@ -96,15 +112,23 @@
                         this.getImage(articlenos, this.$GLOBAL.BRAND_ADIDAS)
                         break
                     case this.$GLOBAL.BRAND_TIANMA:
-                        this.getImage(articlenos, this.$GLOBAL.BRAND_TIANMA)
+                        window.clearInterval(this.setIme);
+                        this.handlerLoading = false;
+                        alert("天马下载通道尚未开启!")
                         break
                     case this.$GLOBAL.BRAND_PUMA:
+                        window.clearInterval(this.setIme);
+                        this.handlerLoading = false;
                         alert("彪马下载通道尚未开启!")
                         break
                     case this.$GLOBAL.BRAND_CONVERSE:
+                        window.clearInterval(this.setIme);
+                        this.handlerLoading = false;
                         alert("匡威下载通道尚未开启!")
                         break
                     case this.$GLOBAL.BRAND_SKECHERS:
+                        window.clearInterval(this.setIme);
+                        this.handlerLoading = false;
                         alert("斯凯奇下载通道尚未开启!")
                         break
                 }

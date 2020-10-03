@@ -49,6 +49,7 @@
         },
         created() {
             this.getUserImage(this.name)
+            bus.$off('search')
         },
         methods: {
             toRar(method,imageList,name){
@@ -148,7 +149,6 @@
                     }
                 })
             })
-            bus.off("search");
         }
     };
 </script>

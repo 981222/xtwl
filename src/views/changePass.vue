@@ -27,7 +27,7 @@
                         <el-button type="primary" disabled v-else>{{ countDownTime }} s</el-button>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>
+                        <el-button type="primary" @click="submitForm('ruleForm')">修改</el-button>
                         <el-button @click="resetForm('ruleForm')">重置</el-button>
                     </el-form-item>
                 </el-form>

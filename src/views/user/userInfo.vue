@@ -3,7 +3,7 @@
         <el-tabs>
             <el-tab-pane label="个人信息">
                 <el-card class="box-card">
-                    <div class="card" style="float:left;">
+                    <div class="card" style="float:left;width: 350px;">
                         <el-avatar :size="100" src="https://pic3.zhimg.com/v2-ea115b92784802ce3dd9e4a945a912dd_r.jpg?source=1940ef5c"></el-avatar>
 
                         <div class="text item info">

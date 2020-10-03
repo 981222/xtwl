@@ -46,7 +46,16 @@
                                 <router-link to="/userInfo" style="text-decoration: none;color: #000"><strong>{{ username }}</strong></router-link>
                             </div>
                             <div class="text item">
-                                <router-link to="/userRecharge" style="text-decoration: none;color: #000"><strong>{{ grade }}</strong></router-link>
+                                <router-link
+                                        to="/userRecharge"
+                                        style="text-decoration: none;color: #000"
+                                        v-if="grade == '免费会员'"
+                                ><strong>{{ grade }}</strong></router-link>
+                                <router-link
+                                        to="/userRecharge"
+                                        style="text-decoration: none;color: red"
+                                        v-else
+                                ><strong>{{ grade }}</strong></router-link>
                             </div>
                         </div>
                         <el-dropdown router trigger="click" v-if="this.login">
