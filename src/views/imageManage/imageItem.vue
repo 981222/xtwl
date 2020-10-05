@@ -18,7 +18,7 @@
 
                 <!--图片预览-->
                 <el-dialog title="查看图片" :visible.sync="userImageInfo[data.name]['dialogVisible2']" width="80%" append-to-body>
-                    <showImage :imageData="{urlList: [data]}" :imageInfo="userImageInfo"></showImage>
+                    <showImage :imageData="{urlList: [data]}" :name="name" :imageInfo="userImageInfo"></showImage>
                     <span slot="footer" class="dialog-footer">
                             <el-button @click="userImageInfo[data.name]['dialogVisible2'] = false">关 闭</el-button>
                     </span>
@@ -119,7 +119,7 @@
                     "/api/my/img_search",
                     {
                         'params': {
-                            'articleno': articleno,
+                            'articleno': articleno.trim().toUpperCase(),
                         }
                     }).then(res => {
                     if (res.data.result.code == 1000){

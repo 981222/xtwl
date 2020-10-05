@@ -39,7 +39,8 @@
 <!--                        <el-breadcrumb-item>活动列表</el-breadcrumb-item>-->
 <!--                        <el-breadcrumb-item>活动详情</el-breadcrumb-item>-->
 <!--                    </el-breadcrumb>-->
-
+                    <b>雄途网络系统欢迎您!</b>
+                    <b style="float: right">联系客服<i class="iconfont icon-QQ"></i>：1141095812</b>
                     <div style="display: flex;align-items: center">
                         <div>
                             <div class="text item" style="margin: 0px 0px 6px;">
@@ -117,13 +118,16 @@
                                 this.grade = "免费会员"
                                 break;
                             case "primary":
-                                this.grade = "免费会员"
+                                this.grade = "初级会员"
                                 break;
                             case "middle":
-                                this.grade = "免费会员"
+                                this.grade = "中级会员"
                                 break;
                             case "advanced":
-                                this.grade = "免费会员"
+                                this.grade = "高级会员"
+                                break;
+                            case "valued":
+                                this.grade = "尊享会员"
                                 break;
                         }
                     }else{
@@ -212,6 +216,10 @@
         overflow-x: hidden;
         position: fixed;
         left: 0;
+    }
+
+    b {
+        font-size: 14px;
     }
 
     .fold {

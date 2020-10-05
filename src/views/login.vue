@@ -25,6 +25,7 @@
                                style="width:100%;margin-top: 10px">登陆</el-button>
                 </el-form>
             </el-col>
+<!--            <span>Copyright ©2020 版权归属 | 广西桂平市雄途网络科技团队 互联网ICP备案：桂ICP备2020007346号-1</span>-->
         </el-row>
     </div>
 </template>
@@ -105,7 +106,7 @@
                         params: {
                             'login': username,
                             'password': password,
-                            'db': 'xiongtu_test',
+                            'db': 'xiongtu',
                         }
                     })
                     .then(res => {

@@ -39,6 +39,12 @@ Vue.use(ElementUI);
 Vue.use(VueJsonp);
 Vue.config.productionTip = false
 
+Array.prototype.pushHead = function(){
+  for(var i = 0 ;i<arguments.length;i++){
+    this.splice(i,0,arguments[i]);
+  }
+}
+
 new Vue({
   router,
   store,

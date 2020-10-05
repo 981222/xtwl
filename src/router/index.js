@@ -59,6 +59,7 @@ const router = new VueRouter({
       component: Index,
       redirect: '/brand',
       icon: 'el-icon-picture',
+      meta: { requireAuth: true, keepAlive: true },
       show:true,
       children: [
         {

@@ -28,7 +28,7 @@
                 </el-form-item>
             </el-form>
         </div>
-        <showImage :imageInfo="imageInfo" :imageData="imageData" ></showImage>
+        <showImage :imageInfo="imageInfo" :imageData="imageData" :name="this.name"></showImage>
     </div>
 </template>`
 
@@ -103,7 +103,7 @@
                 // 获取图片
                 const brand = this.name
                 const method = this.form['resource']
-                const articlenos = this.form['name']
+                const articlenos = this.form['name'].trim().toUpperCase()
                 switch (brand) {
                     case this.$GLOBAL.BRAND_NIKE:
                         this.getImage(articlenos, this.$GLOBAL.BRAND_NIKE)
@@ -158,11 +158,6 @@
                     })
                     .then(res => {
                         if(res.data.result.code == 1000) {
-                            this.$message({
-                                showClose: true,
-                                message: '图片获取成功!',
-                                type: 'success'
-                            });
                             this.imageData['urlList'] = []
                             this.imageInfo = {}
                             for (var i of res.data.result.data){
@@ -181,6 +176,11 @@
                                         ids.push("http://www.xiongzhijiongtu.com:8080/api/image/" + id.toString())
                                     }
                                     data['imgList'] = ids
+                                    if (ids.length == 0){
+                                        this.$message.error('货号' + i[j]['articleno'] + '不存在图片!请更换线路获取!')
+                                    } else {
+                                        this.$Message.success('货号' + i[j]['articleno'] + '图片获取成功!')
+                                    }
                                     this.imageData['urlList'].push(data)
                                 }
                             }

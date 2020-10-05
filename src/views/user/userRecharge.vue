@@ -24,19 +24,19 @@
                                     <el-radio-group v-model="joinMember" class="item">
                                         <el-radio-button label="primaryMonth">
                                             <p><strong>1个月</strong></p>
-                                            <p><strong>￥???</strong></p>
+                                            <p><strong>￥200</strong></p>
                                         </el-radio-button>
                                         <el-radio-button label="primaryQuarterly">
                                             <p><strong>季度</strong></p>
-                                            <p><strong>￥???</strong></p>
+                                            <p><strong>￥500</strong></p>
                                         </el-radio-button>
                                         <el-radio-button label="primaryHalfOfYear">
                                             <p><strong>半年</strong></p>
-                                            <p><strong>￥???</strong></p>
+                                            <p><strong>￥900</strong></p>
                                         </el-radio-button>
                                         <el-radio-button label="primaryYear">
                                             <p><strong>一年</strong></p>
-                                            <p><strong>￥???</strong></p>
+                                            <p><strong>￥1600</strong></p>
                                         </el-radio-button>
                                     </el-radio-group>
                                     <el-card class="box-card item">
@@ -54,19 +54,19 @@
                                     <el-radio-group v-model="joinMember" class="item">
                                         <el-radio-button label="middleMonth">
                                             <p><strong>1个月</strong></p>
-                                            <p><strong>￥???</strong></p>
+                                            <p><strong>￥1200</strong></p>
                                         </el-radio-button>
                                         <el-radio-button label="middleQuarterly">
                                             <p><strong>季度</strong></p>
-                                            <p><strong>￥???</strong></p>
+                                            <p><strong>￥3300</strong></p>
                                         </el-radio-button>
                                         <el-radio-button label="middleHalfOfYear">
                                             <p><strong>半年</strong></p>
-                                            <p><strong>￥???</strong></p>
+                                            <p><strong>￥6000</strong></p>
                                         </el-radio-button>
                                         <el-radio-button label="middleYear">
                                             <p><strong>一年</strong></p>
-                                            <p><strong>￥???</strong></p>
+                                            <p><strong>￥10000</strong></p>
                                         </el-radio-button>
                                     </el-radio-group>
                                     <el-card class="box-card item">
@@ -84,19 +84,19 @@
                                     <el-radio-group v-model="joinMember" class="item">
                                         <el-radio-button label="advanceMonth">
                                             <p><strong>1个月</strong></p>
-                                            <p><strong>￥???</strong></p>
+                                            <p><strong>￥2200</strong></p>
                                         </el-radio-button>
                                         <el-radio-button label="advanceQuarterly">
                                             <p><strong>季度</strong></p>
-                                            <p><strong>￥???</strong></p>
+                                            <p><strong>￥5200</strong></p>
                                         </el-radio-button>
                                         <el-radio-button label="advanceHalfOfYear">
                                             <p><strong>半年</strong></p>
-                                            <p><strong>￥???</strong></p>
+                                            <p><strong>￥9000</strong></p>
                                         </el-radio-button>
                                         <el-radio-button label="advanceYear">
                                             <p><strong>一年</strong></p>
-                                            <p><strong>￥???</strong></p>
+                                            <p><strong>￥16000</strong></p>
                                         </el-radio-button>
                                     </el-radio-group>
                                     <el-card class="box-card item">
@@ -110,23 +110,23 @@
                                         </div>
                                     </el-card>
                                 </el-tab-pane>
-                                <el-tab-pane label="尊享会员" name="supreme">
+                                <el-tab-pane label="尊享会员" name="valued">
                                     <el-radio-group v-model="joinMember" class="item">
-                                        <el-radio-button label="supremeMonth">
+                                        <el-radio-button label="valuedMonth">
                                             <p><strong>1个月</strong></p>
-                                            <p><strong>￥???</strong></p>
+                                            <p><strong>￥3500</strong></p>
                                         </el-radio-button>
-                                        <el-radio-button label="supremeQuarterly">
+                                        <el-radio-button label="valuedQuarterly">
                                             <p><strong>季度</strong></p>
-                                            <p><strong>￥???</strong></p>
+                                            <p><strong>￥9000</strong></p>
                                         </el-radio-button>
-                                        <el-radio-button label="supremeHalfOfYear">
+                                        <el-radio-button label="valuedHalfOfYear">
                                             <p><strong>半年</strong></p>
-                                            <p><strong>￥???</strong></p>
+                                            <p><strong>￥15000</strong></p>
                                         </el-radio-button>
-                                        <el-radio-button label="supremeYear">
+                                        <el-radio-button label="valuedYear">
                                             <p><strong>一年</strong></p>
-                                            <p><strong>￥???</strong></p>
+                                            <p><strong>￥28000</strong></p>
                                         </el-radio-button>
                                     </el-radio-group>
                                     <el-card class="box-card item">
@@ -193,8 +193,9 @@
         },
         methods:{
             pay() {
-                console.log(this.joinMember)
-                console.log(this.payMethod)
+                alert('暂未开放支付，请联系客服！')
+                // console.log(this.joinMember)
+                // console.log(this.payMethod)
             }
         }
     };
