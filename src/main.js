@@ -10,7 +10,11 @@ import { error } from './utils/error'
 import { filesToRar } from './utils/filesToRar'
 import { Message } from 'element-ui';
 import global from './components/utils/global.vue';
+import VideoPlayer from 'vue-video-player'
 
+require('video.js/dist/video-js.css')
+require('vue-video-player/src/custom-theme.css')
+Vue.use(VideoPlayer)
 Vue.prototype.$http = axios.create({
   baseURL: '/api',
   headers: {

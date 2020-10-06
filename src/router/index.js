@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/index/home.vue'
+import VideoTutorial from '../views/videos/videoTutorial'
 import Brand from '../views/imageHandler/Brand.vue'
 import Index from '../views/index.vue'
 import UserInfo from '../views/user/userInfo.vue'
@@ -111,6 +112,21 @@ const router = new VueRouter({
           path: '/userRecharge',
           name: '雄途会员',
           component: UserRecharge
+        },
+      ]
+    },
+    {
+      path: '/videos',
+      name: '视频教程',
+      component: Index,
+      redirect: '/videoTutorial',
+      show: true,
+      icon: 'el-icon-video-camera-solid',
+      children: [
+        {
+          path: '/videoTutorial',
+          name: '操作视频',
+          component: VideoTutorial,
         },
       ]
     },
