@@ -1,7 +1,7 @@
 <template>
     <el-form :inline="true" :model="search" class="demo-form-inline">
-        <el-form-item label="货号名称">
-            <el-input v-model="search.articleno" placeholder="货号名称"></el-input>
+        <el-form-item :label="title">
+            <el-input v-model="search.articleno" :placeholder="content" size="small"></el-input>
         </el-form-item>
 <!--        <el-form-item label="品牌">-->
 <!--            <el-select v-model="search.brand" placeholder="品牌选择">>-->
@@ -11,7 +11,7 @@
 <!--            </el-select>-->
 <!--        </el-form-item>-->
         <el-form-item>
-            <el-button type="primary" @click="searchForArticleno">查询</el-button>
+            <el-button type="primary" @click="searchForArticleno" icon="el-icon-search" size="small">搜索</el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -27,6 +27,10 @@
                     // brand: 'all'
                 },
             }
+        },
+        props: {
+            title: String,
+            content: String,
         },
         methods: {
             searchForArticleno() {

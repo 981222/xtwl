@@ -22,23 +22,24 @@ function getImgArrayBuffer(url){
 }
 
 export function filesToRar(method, imageList, name, callback) {
-    if (imageList == {}){
+    if (imageList == {} && name.length == 0 && typeof(name) == "undefined"){
         this.$notify.info({
             title: '下载提示',
             message: '请选择图片进行下载!'
         });
+        callback(method)
         return;
     }
 
-    this.$Message('正在下载，请稍等!')
+    // this.$Message('正在下载，请稍等!')
 
     let filename = new Date();
-    let month =filename.getMonth() < 9 ? "0" + (filename.getMonth() + 1) : filename.getMonth() + 1;
+    let month =filename.getMonth() < 9 ? "0" + (filename.getMonth() + 1) : (filename.getMonth() + 1).toString();
     let date = filename.getDate() <= 9 ? "0" + filename.getDate() : filename.getDate();
     filename = filename.getFullYear() + month + date + filename.getHours() + filename.getMinutes() + filename.getSeconds();
 
     let arrImages = []
-    let downImgTime = 0
+    // let downImgTime = 0
     let zip = new JSZip();
     let cache = {};
     let promises = [];
@@ -72,9 +73,23 @@ export function filesToRar(method, imageList, name, callback) {
                 arrImages.push({fileUrl: imageList[name]['imageUrls'][j], renameFileName: name + "_" + (j + 1).toString() + ".jpg"})
             }
             break;
+        case "SelectByListName":
+            for(let j of imageList.urlList)
+                for (let i of name){{
+                    if (i === j.name){
+                        for(let x = 0; x < j.imgList.length; x++){
+                            arrImages.push({fileUrl: j['imgList'][x], renameFileName: j.name + "_" + (x + 1).toString() + ".jpg"})
+                        }
+                    }
+                }
+            }
+            break;
     }
 
     if (arrImages.length == 0){
+        console.log(imageList)
+        console.log(method)
+        console.log(name)
         this.$notify.info({
             title: '下载提示',
             message: '请选择图片进行下载!'

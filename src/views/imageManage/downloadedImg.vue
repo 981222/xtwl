@@ -1,6 +1,6 @@
 <template>
     <div>
-        <search ></search>
+        <search :title="title" :content="content"></search>
         <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="耐克" :name="this.$GLOBAL.BRAND_NIKE">
                 <imageItem :name="this.$GLOBAL.BRAND_NIKE" v-if="this.$GLOBAL.BRAND_NIKE == activeName"></imageItem>
@@ -25,6 +25,8 @@
     export default {
         data() {
             return {
+                title: "货号名称",
+                content: "货号名称",
                 activeName: this.$GLOBAL.BRAND_NIKE,
                 // userImageInfo: this.$store.state.userImageInfo,
                 // userImageData: this.$store.state.userImageData,

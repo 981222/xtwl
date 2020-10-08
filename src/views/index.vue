@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <el-container :class="shrinkC" ref="app">
+        <el-container :class="isCollapse ? 'shrinkShort' : 'shrinkLong'" ref="app">
             <el-aside class="nav-left scroll" :width="width" v-if="this.login">
                 <el-menu router text-color="#bbbbbb" :collapse="isCollapse"  class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
 
@@ -29,16 +29,11 @@
             <el-container>
                 <el-header class="header1">
 
-                    <div class="fold" ref="isCollapse" @click="shrink">
-                        <i class="el-icon-s-operation"></i>
+                    <div :class="isCollapse ? 'fold' : 'unfold'" ref="isCollapse" @click="shrink">
+                        <i class="iconfont icon-caidanshousuo" v-if="isCollapse"></i>
+                        <i class="iconfont icon-caidanshousuo" v-else></i>
                     </div>
 
-<!--                    <el-breadcrumb separator="/">-->
-<!--                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>-->
-<!--                        <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>-->
-<!--                        <el-breadcrumb-item>活动列表</el-breadcrumb-item>-->
-<!--                        <el-breadcrumb-item>活动详情</el-breadcrumb-item>-->
-<!--                    </el-breadcrumb>-->
                     <b>雄途网络系统欢迎您!</b>
                     <b style="float: right">联系客服<i class="iconfont icon-QQ"></i>：1141095812</b>
                     <div style="display: flex;align-items: center">
@@ -223,8 +218,23 @@
     }
 
     .fold {
-        float: left;
-        font-size: 30px;
+        transition: all 300ms linear 0ms;
+        -o-transition: all 300ms linear 0ms; /*兼容parsto内核*/
+        -moz-transition: all 300ms linear 0ms; /*兼容gecko内核*/
+        -webkit-transition: all 300ms linear 0ms; /*兼容webkit内核*/
+    }
+
+    .fold .iconfont, .unfold .iconfont{
+        font-size: 24px;
+        color: black;
+    }
+
+    .unfold {
+        transform: rotateY(180deg);
+        transition: all 300ms linear 0ms;
+        -o-transition: all 300ms linear 0ms; /*兼容parsto内核*/
+        -moz-transition: all 300ms linear 0ms; /*兼容gecko内核*/
+        -webkit-transition: all 300ms linear 0ms; /*兼容webkit内核*/
     }
 
     .el-menu-vertical-demo:not(.el-menu--collapse) {

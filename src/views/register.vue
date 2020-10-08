@@ -33,6 +33,11 @@
                             <i slot="prefix" class="el-icon-phone-outline" />
                         </el-input>
                     </el-form-item>
+                    <el-form-item prop="invite">
+                        <el-input type="text" v-model="ruleForm.invite" autocomplete="off" placeholder="邀请码">
+                            <i slot="prefix" class="el-icon-link" />
+                        </el-input>
+                    </el-form-item>
                     <el-form-item prop="code">
                         <el-input type="text" v-model="ruleForm.code" placeholder="验证码">
                             <i slot="prefix" class="el-icon-position" />
@@ -150,7 +155,7 @@
                     </el-form-item>
                 </el-form>
             </el-col>
-            <span style="position: fixed;bottom: 30px;font-size: 14px;color: #fff;text-align: center">Copyright © {{ new Date().getFullYear() }} 桂平市雄途网络科技团队 All Rights Reserved.<br><a href="http://beian.miit.gov.cn" style="color: white;text-decoration: none">桂ICP备2020007346号-1</a></span>
+            <span style="position: fixed;bottom: 30px;font-size: 14px;color: #fff;text-align: center">Copyright © {{ new Date().getFullYear() }} 桂平市雄途网络科技有限公司 All Rights Reserved.<br><a href="http://beian.miit.gov.cn" style="color: white;text-decoration: none">桂ICP备2020007346号-1</a></span>
         </el-row>
     </div>
 </template>
@@ -228,6 +233,7 @@
                     phone: '',
                     code: '',
                     protocol: false,
+                    invite: '',
                 },
                 rules: {
                     pass: [

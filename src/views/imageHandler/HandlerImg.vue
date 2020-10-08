@@ -20,7 +20,8 @@
 <!--                        <el-radio label="通道三"></el-radio>-->
                     </el-radio-group>
                 </el-form-item>
-                <el-form-item>
+                <b style="margin: 12px;color: red">警告： 请勿使用官网广告宣传图片，有高投诉风险！！！</b>
+                <el-form-item style="margin-top: 15px">
                     <el-button type="success" @click="loading" :loading="handlerLoading">{{ handlerLoading ? '正在获取,耗时' + downImgTime.toString() + 's':'立即创建'}}</el-button>
 <!--                    {{ loadingSelect ? '下载中,耗时' + downImgTime.toString() + 's':'下载已选择图片'}}-->
                     <el-button type="primary" @click="toRar('Select', imageInfo)" :loading="loadingSelect">{{ loadingSelect ? '正在下载...':'下载已选图片'}}</el-button>
