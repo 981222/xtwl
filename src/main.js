@@ -11,6 +11,8 @@ import { filesToRar } from './utils/filesToRar'
 import { Message } from 'element-ui';
 import global from './components/utils/global.vue';
 import VideoPlayer from 'vue-video-player'
+import DragImage from 'vue-draggable-resizable'
+import 'vue-draggable-resizable/dist/VueDraggableResizable.css'
 
 require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
@@ -42,6 +44,7 @@ Vue.prototype.$Message = Message
 Vue.use(ElementUI);
 Vue.use(VueJsonp);
 Vue.config.productionTip = false
+Vue.component('DragImage', DragImage)
 
 Array.prototype.pushHead = function(){
   for(var i = 0 ;i<arguments.length;i++){

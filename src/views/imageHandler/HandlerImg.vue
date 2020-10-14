@@ -1,7 +1,7 @@
 <template>
     <div style="border-radius: 4px;box-shadow: rgb(0, 0, 0) 0px 0px 10px -7px;">
         <div style="margin-bottom: 20px;padding: 20px;">
-            <el-form ref="form" :model="form" label-width="80px"  :rules="rules">
+            <el-form ref="form" :model="form" label-width="80px"  :rules="rules" @submit.native.prevent>
                 <el-form-item prop="name" label="输入货号">
                     <el-popover
                             placement="top-start"
@@ -11,7 +11,7 @@
                             content="请输入完整货号，货号之间使用空格间隔，为了保证速度每次请求只能接收最多5个货号。">
                         <i slot="reference" class="el-icon-question"></i>
                     </el-popover>
-                    <el-input style="width: 80%;margin-left: 10px" v-model="form.name" placeholder="请输入货号"></el-input>
+                    <el-input style="width: 80%;margin-left: 10px" v-model="form.name" placeholder="请输入货号" @keyup.enter.native="loading"></el-input>
                 </el-form-item>
                 <el-form-item label="选择通道">
                     <el-radio-group v-model="form.resource">
@@ -23,9 +23,26 @@
                 <b style="margin: 12px;color: red">警告： 请勿使用官网广告宣传图片，有高投诉风险！！！</b>
                 <el-form-item style="margin-top: 15px">
                     <el-button type="success" @click="loading" :loading="handlerLoading">{{ handlerLoading ? '正在获取,耗时' + downImgTime.toString() + 's':'立即创建'}}</el-button>
-<!--                    {{ loadingSelect ? '下载中,耗时' + downImgTime.toString() + 's':'下载已选择图片'}}-->
-                    <el-button type="primary" @click="toRar('Select', imageInfo)" :loading="loadingSelect">{{ loadingSelect ? '正在下载...':'下载已选图片'}}</el-button>
-                    <el-button type="primary" @click="toRar('All', imageData)" :loading="loadingAll">{{ loadingAll ? '正在下载...':'下载全部图片'}}</el-button>
+                    <el-button type="primary" @click="toRar('Select', imageInfo)" :loading="loadingSelect">
+                        {{ loadingSelect ? '正在下载...':'下载已选图片'}}
+                        <el-popover
+                                placement="top"
+                                width="100"
+                                trigger="hover"
+                                content="下载目前页面已选图片.">
+                            <i slot="reference" class="el-icon-question" style="color: black!important;"></i>
+                        </el-popover>
+                    </el-button>
+                    <el-button type="primary" @click="toRar('All', imageData)" :loading="loadingAll">
+                        {{ loadingAll ? '正在下载...':'下载全部图片'}}
+                        <el-popover
+                                placement="top"
+                                width="100"
+                                trigger="hover"
+                                content="下载目前页面全部图片.">
+                            <i slot="reference" class="el-icon-question" style="color: black!important;"></i>
+                        </el-popover>
+                    </el-button>
                 </el-form-item>
             </el-form>
         </div>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="demo-image__lazy" v-for="(data, i) in imageData.urlList" :key="i"style=" background-color: #fff;box-shadow: rgb(0, 0, 0) 0px 0px 10px -7px;border-radius: 4px;margin-bottom: 20px;float: left;width: 100%;">
+        <div class="demo-image__lazy" v-for="(data, i) in imageData.urlList" :key="i" style=" background-color: #fff;box-shadow: rgb(0, 0, 0) 0px 0px 10px -7px;border-radius: 4px;margin-bottom: 20px;float: left;width: 100%;">
             <el-form ref="form" :model="imageInfo" label-width="50px">
                 <div class="name-bottom">
 
@@ -91,6 +91,10 @@
             },
             handleCheckedCitiesChange(value, data) {
                 let checkedCount = value.length;
+                console.log(checkedCount)
+                console.log(data.imgList.length)
+                console.log(checkedCount === data.imgList.length)
+                console.log(checkedCount > 0 && checkedCount < data.imgList.length)
                 this.imageInfo[data.name]['checkAll'] = checkedCount === data.imgList.length;
                 this.imageInfo[data.name]['isIndeterminate'] = checkedCount > 0 && checkedCount < data.imgList.length;
             },

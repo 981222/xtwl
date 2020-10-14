@@ -2,7 +2,13 @@
     <div id="app">
         <el-container :class="isCollapse ? 'shrinkShort' : 'shrinkLong'" ref="app">
             <el-aside class="nav-left scroll" :width="width" v-if="this.login">
-                <el-menu router text-color="#bbbbbb" :collapse="isCollapse"  class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+                <el-menu router
+                         :collapse="isCollapse"
+                         class="el-menu-vertical-demo"
+                         background-color="#304156"
+                         text-color="#bbbbbb"
+                         @open="handleOpen"
+                         @close="handleClose">
 
                     <el-menu-item index="/news" class="nav-home">
 <!--                        <i class="el-icon-s-promotion" style="color: #fff;margin-right: 10px"></i>-->
@@ -71,7 +77,10 @@
 <!--                </el-header>-->
 
                 <el-main>
-                    <router-view :username="username" :email="email" :grade="grade" :phone="phone"></router-view>
+                    <keep-alive>
+                        <router-view v-if="$route.meta.keepAlive" :username="username" :email="email" :grade="grade" :phone="phone"></router-view>
+                        <router-view v-if="!$route.meta.keepAlive" :username="username" :email="email" :grade="grade" :phone="phone"></router-view>
+                    </keep-alive>
                 </el-main>
             </el-container>
 
@@ -190,19 +199,6 @@
     /deep/ .el-tooltip {
         text-align: center;
     }
-    .user-info /deep/ .el-menu-item {
-        /*text-align: center!important;*/
-    }
-    .nav{
-        /*position:fixed!important;*/
-        /*top:0;*/
-        /*left:0;*/
-        /*right:2000;*/
-        /*z-index:999;*/
-    }
-    .nav /deep/ .el-submenu {
-        /*float: right!important;*/
-    }
 
     .nav-left{
         background-color: #304156;
@@ -268,17 +264,6 @@
         background: #fff;
     }
 
-    /*.login-register .el-link--default{*/
-    /*    color: white!important;*/
-    /*}*/
-
-    /*.login-register {*/
-    /*    float: right;*/
-    /*    width: 100px;*/
-    /*    display: flex;*/
-    /*    justify-content: space-around;*/
-    /*}*/
-
     /deep/ .el-header {
         background-color: #fff;
         color: #333;
@@ -287,7 +272,7 @@
     }
     /deep/ .el-menu {
         color: #fff!important;
-        background-color: #304156!important;
+        /*background-color: #304156!important;*/
         border-right: 0px!important;
     }
 
@@ -301,25 +286,22 @@
     }
 
     .nav-left .el-menu-item:hover {
-        background-color: #001234!important;
+        /*background-color: #001234!important;*/
         border-left: #33A2EF solid 4px !important;
         transition: all 100ms linear!important;
     }
     .nav-left /deep/ .el-submenu__title:hover {
-        background-color: #001234!important;
+        /*background-color: #001234!important;*/
         transition: all 100ms linear!important;
     }
     .nav-home {
-        background-color: #001234;
+        background-color: #001234!important;
         color: #fff;
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
-    /deep/ .el-link--inner {
-        /*height: 56px!important;*/
-    }
     .header1 {
         text-align: center;
         font-size: 12px;

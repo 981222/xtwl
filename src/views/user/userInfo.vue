@@ -18,7 +18,46 @@
                         <div class="text item info">
                             电子邮箱：<span style="float: right">{{ email }}</span>
                         </div>
+                        <div class="text item info">
+                            邀请码：<span style="float: right"></span>
+                        </div>
                     </div>
+                </el-card>
+            </el-tab-pane>
+            <el-tab-pane label="我的佣金">
+                <el-card class="box-card">
+                    <div class="text item" style="margin-bottom: 20px">
+                        <span style="margin-right: 40px">已推广人数：<b>0</b></span>
+                    </div>
+                    <div class="text item" style="margin-bottom: 20px">
+                        <span style="margin-right: 40px">已获佣金：<b>0￥</b></span>
+                        <el-button type="primary" icon="el-icon-s-promotion">提现</el-button>
+                    </div>
+                    <el-table
+                            :data="tableData"
+                            style="width: 100%"
+                            height="250">
+                        <el-table-column
+                                prop="date"
+                                label="类型"
+                                width="120">
+                        </el-table-column>
+                        <el-table-column
+                                prop="name"
+                                label="变更前佣金"
+                                width="120">
+                        </el-table-column>
+                        <el-table-column
+                                prop="city"
+                                label="变更后佣金"
+                                width="120">
+                        </el-table-column>
+                        <el-table-column
+                                prop="zip"
+                                label="日期"
+                                width="120">
+                        </el-table-column>
+                    </el-table>
                 </el-card>
             </el-tab-pane>
             <el-tab-pane label="修改密码">

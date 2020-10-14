@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/index/home.vue'
 import VideoTutorial from '../views/videos/videoTutorial'
 import Brand from '../views/imageHandler/Brand.vue'
 import Index from '../views/index.vue'
 import UserInfo from '../views/user/userInfo.vue'
 import ChangePass from '../views/changePass.vue'
 import WaterMark from '../views/user/waterMark.vue'
+import ImageTemplate from '../components/image/imageTemplate'
 import Login from '../views/login.vue'
 import Register from '../views/register.vue'
 import UserLog from '../views/user/userLog.vue'
@@ -68,6 +68,11 @@ const router = new VueRouter({
           name: '图片获取',
           component: Brand
         },
+        {
+          path: '/imageTemplate',
+          name: '图片模板',
+          component: ImageTemplate
+        },
       ]
     },
     {
@@ -77,6 +82,7 @@ const router = new VueRouter({
       redirect: '/downloadedImg',
       show:true,
       icon: 'el-icon-s-grid',
+      meta: { requireAuth: true, keepAlive: true },
       children: [
         {
           path: '/downloadedImg',
@@ -112,6 +118,11 @@ const router = new VueRouter({
           path: '/userRecharge',
           name: '雄途会员',
           component: UserRecharge
+        },
+        {
+          path: '/waterMark',
+          name: '水印',
+          component: WaterMark
         },
       ]
     },

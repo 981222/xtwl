@@ -14,7 +14,7 @@
                         </el-input>
                     </el-form-item>
                     <el-form-item prop="pass">
-                        <el-input type="password" v-model="ruleForm.pass" autocomplete="off" placeholder="密码">
+                        <el-input type="password" v-model="ruleForm.pass" autocomplete="off" placeholder="密码" @keyup.enter.native="submitForm('ruleForm')">
                             <i slot="prefix" class="el-icon-lock" />
                         </el-input>
                     </el-form-item>

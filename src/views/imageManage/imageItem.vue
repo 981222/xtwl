@@ -11,7 +11,7 @@
             <el-col :span="4" v-for="(data, index) in userImageData.urlList" :key="index" style="margin: 20px 20px 20px 0px">
                 <el-card shadow="hover" :body-style="{ padding: '0px' }">
 
-                    <img :src="data.imgList[0]" class="image">
+                    <img :src="data.imgList[0]" class="image" @click="userImageInfo[data.name]['dialogVisible2'] = true">
                     <div style="padding: 10px;">
                         <span>{{ data.name }}</span>
                         <div class="bottom clearfix">
@@ -41,7 +41,7 @@
 
         <!--下载-->
         <el-dialog title="下载图片" :visible.sync="dialogVisible" width="80%" append-to-body>
-            <Brand :imageData="{urlList: [data]}" :name="name" :imageInfo="userImageInfo"></Brand>
+            <Brand :aName="name"></Brand>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">关 闭</el-button>
             </span>
@@ -225,6 +225,7 @@
     .image {
         width: 100%;
         display: block;
+        cursor:pointer;
     }
 
     .clearfix:before,

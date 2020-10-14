@@ -8,11 +8,15 @@
             <el-tab-pane label="阿迪达斯" :name="this.$GLOBAL.BRAND_ADIDAS">
                 <imageItem :name="this.$GLOBAL.BRAND_ADIDAS" v-if="this.$GLOBAL.BRAND_ADIDAS == activeName"></imageItem>
             </el-tab-pane>
-<!--            <el-tab-pane label="天马" name="tianma">-->
-<!--                <imageItem :name="activeName"></imageItem>-->
-<!--            </el-tab-pane>-->
-<!--            <el-tab-pane label="其他" name="other">-->
-<!--            </el-tab-pane>-->
+            <el-tab-pane label="彪马" :name="this.$GLOBAL.BRAND_PUMA">
+                <imageItem :name="this.$GLOBAL.BRAND_PUMA" v-if="this.$GLOBAL.BRAND_PUMA == activeName"></imageItem>
+            </el-tab-pane>
+            <el-tab-pane label="匡威" :name="this.$GLOBAL.BRAND_CONVERSE">
+                <imageItem :name="this.$GLOBAL.BRAND_CONVERSE" v-if="this.$GLOBAL.BRAND_CONVERSE == activeName"></imageItem>
+            </el-tab-pane>
+            <el-tab-pane label="斯凯奇" :name="this.$GLOBAL.BRAND_SKECHERS">
+                <imageItem :name="this.$GLOBAL.BRAND_SKECHERS" v-if="this.$GLOBAL.BRAND_SKECHERS == activeName"></imageItem>
+            </el-tab-pane>
 
         </el-tabs>
     </div>
