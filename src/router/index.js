@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import VideoTutorial from '../views/videos/videoTutorial'
 import Brand from '../views/imageHandler/Brand.vue'
 import Index from '../views/index.vue'
+import Design from '../views/design/index.vue'
 import UserInfo from '../views/user/userInfo.vue'
 import ChangePass from '../views/changePass.vue'
 import WaterMark from '../views/user/waterMark.vue'
@@ -69,9 +70,9 @@ const router = new VueRouter({
           component: Brand
         },
         {
-          path: '/imageTemplate',
+          path: '/design',
           name: '图片模板',
-          component: ImageTemplate
+          component: Design
         },
       ]
     },
@@ -119,11 +120,11 @@ const router = new VueRouter({
           name: '雄途会员',
           component: UserRecharge
         },
-        {
-          path: '/waterMark',
-          name: '水印',
-          component: WaterMark
-        },
+        // {
+        //   path: '/waterMark',
+        //   name: '水印',
+        //   component: WaterMark
+        // },
       ]
     },
     {

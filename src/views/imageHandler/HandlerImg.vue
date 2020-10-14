@@ -5,7 +5,7 @@
                 <el-form-item prop="name" label="输入货号">
                     <el-popover
                             placement="top-start"
-                            title="提示"
+                            title=""
                             width="400"
                             trigger="hover"
                             content="请输入完整货号，货号之间使用空格间隔，为了保证速度每次请求只能接收最多5个货号。">
@@ -20,7 +20,8 @@
 <!--                        <el-radio label="通道三"></el-radio>-->
                     </el-radio-group>
                 </el-form-item>
-                <b style="margin: 12px;color: red">警告： 请勿使用官网广告宣传图片，有高投诉风险！！！</b>
+                <p><b style="margin: 12px;color: red">警告：请勿使用官网广告宣传图片，有高投诉风险！！！</b></p>
+                <p><b style="margin: 12px;color: red">下载说明：如出现下载数据包无法解压问题可尝试清理浏览器缓存。</b></p>
                 <el-form-item style="margin-top: 15px">
                     <el-button type="success" @click="loading" :loading="handlerLoading">{{ handlerLoading ? '正在获取,耗时' + downImgTime.toString() + 's':'立即创建'}}</el-button>
                     <el-button type="primary" @click="toRar('Select', imageInfo)" :loading="loadingSelect">

@@ -13,6 +13,23 @@ import global from './components/utils/global.vue';
 import VideoPlayer from 'vue-video-player'
 import DragImage from 'vue-draggable-resizable'
 import 'vue-draggable-resizable/dist/VueDraggableResizable.css'
+import './assets/style/index.less' // global css
+
+
+import bus from './utils/fed-design/x-bus'
+// global request
+import http from './utils/fed-design/x-request'
+
+import * as filters from './utils/fed-design/x-filters' // global request
+
+
+Vue.use(bus)
+// request
+Vue.use(http)
+
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 
 require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
@@ -45,6 +62,10 @@ Vue.use(ElementUI);
 Vue.use(VueJsonp);
 Vue.config.productionTip = false
 Vue.component('DragImage', DragImage)
+
+
+
+Vue.config.productionTip = false
 
 Array.prototype.pushHead = function(){
   for(var i = 0 ;i<arguments.length;i++){
