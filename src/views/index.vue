@@ -248,18 +248,16 @@
 
     .scroll::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
         /*border-radius: 3px;*/
-        -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-        background: #409EFF;
+        background-color: rgba(0, 0, 0, .2);
     }
 
     .scroll::-webkit-scrollbar-thumb:hover {/*滚动条里面小方块*/
         /*border-radius: 3px;*/
-        -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-        background: #3e82c7
+        background-color: rgba(0, 0, 0, .25);
     }
 
     .scroll::-webkit-scrollbar-track {/*滚动条里面轨道*/
-        -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        background-color:rgba(0,0,0,.05);
         /*border-radius: 3px;*/
         background: #fff;
     }

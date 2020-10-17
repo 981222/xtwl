@@ -6,6 +6,9 @@
       <el-button size="mini" @click="onConsole">
         debug
       </el-button>
+<!--      <el-button size="mini" @click="saveTemplate">-->
+<!--        保存模板-->
+<!--      </el-button>-->
       <el-button size="mini" @click="onPreview">
         预览
       </el-button>
@@ -92,12 +95,12 @@ export default {
         useCORS: true
       }).then((canvas) => {
         const base64 = canvas.toDataURL().split(';base64,')[1]
-
+        console.log(base64)
         const zip = new JSZip()
         // 文件夹名称
         const name = this.$options.filters.formatDate(new Date(), 'yyyy-MM-dd hh-mm-ss')
         const img = zip.folder(name)
-        img.file(`${uuidv4()}.png`, base64, { base64: true })
+        img.file(`${uuidv4()}.jpg`, base64, { base64: true })
         zip.generateAsync({ type: 'blob' }).then((content) => {
           // see FileSaver.js
           saveAs(content, `${name}.zip`)
@@ -160,6 +163,11 @@ export default {
     // 输出代码
     onConsole () {
       console.log(JSON.parse(JSON.stringify(this.layouts)))
+    },
+    // 保存模板
+    saveTemplate () {
+      const data = JSON.parse(JSON.stringify(this.layouts))
+      console.log(data)
     },
     // 预览
     onPreview () {

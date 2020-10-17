@@ -53,6 +53,10 @@ export default {
         h = this.h
         w = Math.ceil(this.width * (h / this.height))
       }
+      // console.log(this.w)
+      // console.log(this.h)
+      // console.log(Math.ceil(this.height * (w / this.width)))
+      // console.log(Math.ceil(this.width * (h / this.height)))
       const left = (this.w - w) / 2
       const top = (this.h - h) / 2
       return {
@@ -125,6 +129,7 @@ export default {
       this.bounds.top = top
     },
     elementDown (e) {
+      e.preventDefault()
       this.bounds = {
         ...this.bounds,
         mouseX: e.touches ? e.touches[0].pageX : e.pageX,
@@ -138,10 +143,29 @@ export default {
     },
     move (e) {
       const bounds = this.bounds
-      const { minLeft, maxLeft, minTop, maxTop } = this.dragLimits
+      let { minLeft, maxLeft, minTop, maxTop } = this.dragLimits
+
+      if (maxLeft < minLeft){
+        let left = maxLeft
+        maxLeft = minLeft
+        minLeft = left
+      }
+
+      if (maxTop < minTop){
+        let top = maxTop
+        maxTop = minTop
+        minTop = top
+      }
 
       const x = bounds.mouseX - (e.touches ? e.touches[0].pageX : e.pageX)
       const y = bounds.mouseY - (e.touches ? e.touches[0].pageY : e.pageY)
+
+      // console.log(bounds.left)
+      // console.log(bounds.top)
+      // console.log(bounds.mouseX)
+      // console.log(bounds.mouseY)
+      // console.log(x)
+      // console.log(y)
 
       // x区域限制
       this.rawLeft = bounds.left - x
@@ -157,7 +181,11 @@ export default {
       } else if (this.rawTop > maxTop) {
         this.rawTop = maxTop
       }
+      // console.log(this.rawTop)
+      // console.log(this.rawLeft)
       // 向画布发送数据
+      // console.log((this.rawLeft - minLeft) * bounds.scaleX)
+      // console.log((this.rawTop - minTop) * bounds.scaleY)
       this.$bus.emit('bus-design-zoom-move', {
         x: (this.rawLeft - minLeft) * bounds.scaleX,
         y: (this.rawTop - minTop) * bounds.scaleY

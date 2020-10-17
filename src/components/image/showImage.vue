@@ -32,11 +32,16 @@
 
                 <div>
                     <el-checkbox-group fill="#fff" class="imageList" v-model="imageInfo[data.name]['imageUrls']" @change="(value) => handleCheckedCitiesChange(value, data)">
-                        <el-checkbox v-for="(url, index) in data.imgList" :label="url" :key="index">
-                            <div>
-                                <img class="image":key="index" :src="url">
+                        <el-checkbox v-for="(url, index) in data.imgList" :label="url" :key="index" v-images-loaded:on.progress="imageProgress">
+                            <div v-loading="loading"
+                                element-loading-text="图片加载中"
+                                element-loading-spinner="el-icon-loading"
+                                element-loading-background="rgba(0, 0, 0, 0.8)">
+                                <img class="image"
+                                     :key="index"
+                                     :src="url">
                                 <div class="checkboxIcon">
-                                    <i class="iconfont icon-xuanzhong"></i>
+                                    <i class="el-icon-success"></i>
                                 </div>
                             </div>
                         </el-checkbox>
@@ -70,9 +75,13 @@
 
 <script>
     import '../../assets/icon/iconfont.css'
-    import download from 'downloadjs'
+    import imagesLoaded from 'vue-images-loaded'
+    // import download from 'downloadjs'
 
     export default {
+        directives: {
+            imagesLoaded
+        },
         props: {
             name: String,
             imageInfo: Object,
@@ -80,21 +89,25 @@
         },
         data(){
           return {
+              // loading: true,
               loadingSelect: false,
               loadingPuzzle: false,
           }
         },
         methods: {
+            imageProgress(instance, image ) {
+                const result = image.isLoaded ? 'loaded' : 'broken';
+                // console.log(image)
+                // console.log(instance)
+                console.log('image is ' + result + ' for ' + image.img.src);
+                // image.img.src = 'http://www.xiongzhijiongtu.com:8080/api/image/5583'
+            },
             handleCheckAllChange(val, data) {
                 this.imageInfo[data.name]['imageUrls'] = val ? data.imgList : [];
                 this.imageInfo[data.name]['isIndeterminate'] = false;
             },
             handleCheckedCitiesChange(value, data) {
                 let checkedCount = value.length;
-                console.log(checkedCount)
-                console.log(data.imgList.length)
-                console.log(checkedCount === data.imgList.length)
-                console.log(checkedCount > 0 && checkedCount < data.imgList.length)
                 this.imageInfo[data.name]['checkAll'] = checkedCount === data.imgList.length;
                 this.imageInfo[data.name]['isIndeterminate'] = checkedCount > 0 && checkedCount < data.imgList.length;
             },
@@ -115,12 +128,12 @@
                         }
                     }).then(res => {
                     if (res.data.result.code == 1000){
-                        this.$Message.success('拼图成功')
+                        this.$Message.success('拼图成功,请前往图库查看图片')
                         this.loadingPuzzle = false
                         for (let i of this.imageData.urlList) {
                             if (i.name == name) i.imgList.pushHead("http://www.xiongzhijiongtu.com:8080/api/image/" + res.data.result.data)
                         }
-                        download("http://www.xiongzhijiongtu.com:8080/api/image/" + res.data.result.data, name + '.jpg', 'image/jpeg')
+                        // download("http://www.xiongzhijiongtu.com:8080/api/image/" + res.data.result.data, name + '.jpg', 'image/jpeg')
                     }else{
                         this.loadingPuzzle = false
                         this.$error(res.data.result.code,res.data.result.message)
@@ -148,10 +161,11 @@
     }
     .el-checkbox {
         margin-right: 0px;
+        margin-bottom: 10px;
     }
 
     .checkboxIcon {
-        font-size: 30px;
+        font-size: 24px;
         position: absolute;
         right: 15px;
         bottom: 15px;

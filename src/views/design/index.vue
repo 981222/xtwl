@@ -54,9 +54,10 @@ export default {
 <style lang="less">
   .m-design-main{
     display: flex;
-    height: 100vh;
+    height: calc(100vh - 56px);
     flex-direction: column;
     font-size: 13px;
+    margin: -20px -20px -20px -14px;
     ul,li,dl,dt,dd{ margin: 0; padding: 0; list-style: none;}
     .m-design-flex{
       display: flex; flex: 1; overflow: hidden;

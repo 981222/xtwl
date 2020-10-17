@@ -1,8 +1,7 @@
 <template>
   <el-upload
     class="f-ad-upload"
-    action=""
-    :http-request="onUpload"
+    action="https://jsonplaceholder.typicode.com/posts/"
     :accept="params.accept || '.jpg,.png'"
     :headers="headers"
     :data="params.data"
@@ -62,19 +61,18 @@ export default {
       return is
     },
     // 文件上传成功时的钩子
-    onUpload(file) {
-      console.log(file.file)
-    },
+    // onUpload(file) {
+    //   console.log(file.file)
+    // },
     onSuccess (res) {
       // 此处可能需要根据 response 的值，校验接口是否成功
       this.disabled = false
-      console.log("asd")
-      if (res.id) {
-        let data = res.data
-        if (Object.prototype.toString.call(data) === '[object Array]') {
-          data = data[0]
-        }
-        this.$emit('on-success', data.replace('https://cdn.', 'https://alicdn.'), this.fileInfo)
+      if (res) {
+        // let data = res.data
+        // if (Object.prototype.toString.call(data) === '[object Array]') {
+        //   data = data[0]
+        // }
+        this.$emit('on-success', '...', this.fileInfo)
         // console.log(res)
       } else {
         // 处理异常

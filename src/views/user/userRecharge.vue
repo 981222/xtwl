@@ -165,6 +165,21 @@
 <!--                                </el-radio-button>-->
                             </el-radio-group>
                             <el-button type="primary" icon="el-icon-s-promotion" style="float: right" @click="pay">确认支付</el-button>
+                            <el-dialog
+                                    title="输入支付宝订单号"
+                                    :visible.sync="verifyPay"
+                                    width="30%"
+                                    :before-close="handleClose"
+                                    center>
+                                <el-form :inline="true" :model="formPay" class="demo-form-inline" size="small" style="text-align: center">
+                                    <el-form-item label="订单号">
+                                        <el-input v-model="formPay.id" placeholder="订单号"></el-input>
+                                    </el-form-item>
+                                    <el-form-item>
+                                        <el-button type="primary" @click="onVerifyPay">验证</el-button>
+                                    </el-form-item>
+                                </el-form>
+                            </el-dialog>
                         </div>
                         </div>
                         <div v-else>
@@ -191,10 +206,15 @@
 
 <script>
     import alipayLogo from '../../assets/icon/Alipay.png'
+
     export default {
         props:['username', 'grade'],
         data() {
             return {
+                formPay: {
+                    id: '',
+                },
+                verifyPay: false,
                 joinMember: 'primaryMonth',
                 payMethod: 'Alipay',
                 alipayLogo: alipayLogo,
@@ -204,9 +224,29 @@
         },
         methods:{
             pay() {
-                alert('暂未开放支付，请联系客服！')
-                // console.log(this.joinMember)
-                // console.log(this.payMethod)
+                this.verifyPay = true
+                // this.$http.post(
+                //     "/api/payment",
+                //     {
+                //         'params': {
+                //             'type': nikeName,
+                //             'price': password,
+                //         }
+                //     })
+
+                // alert('暂未开放支付，请联系客服！')
+                console.log(this.joinMember)
+                console.log(this.payMethod)
+            },
+            onVerifyPay() {
+                this.verifyPay = false
+            },
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {});
             }
         }
     };

@@ -34,7 +34,7 @@
                         </el-input>
                     </el-form-item>
                     <el-form-item prop="invite">
-                        <el-input type="text" v-model="ruleForm.invite" autocomplete="off" placeholder="邀请码">
+                        <el-input type="text" v-model="ruleForm.invite_code" autocomplete="off" placeholder="邀请码">
                             <i slot="prefix" class="el-icon-link" />
                         </el-input>
                     </el-form-item>
@@ -233,7 +233,7 @@
                     phone: '',
                     code: '',
                     protocol: false,
-                    invite: '',
+                    invite_code: '',
                 },
                 rules: {
                     pass: [
@@ -285,6 +285,7 @@
                 const phone = this.ruleForm.phone
                 const email = this.ruleForm.email
                 const code = this.ruleForm.code
+                const invite_code = this.ruleForm.invite_code
                 this.$http.post(
                     "/api/register/user",
                     {
@@ -294,6 +295,7 @@
                             'phone': phone,
                             'email': email,
                             'code': code,
+                            'invite_code': invite_code,
                         }
                     })
                     .then(res => {

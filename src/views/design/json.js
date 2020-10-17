@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from 'uuid'
 
 export default {
-  '1280_720': [{
+  '1280_720': [
+    {
     id: uuidv4(),
     width: 1280,
     height: 720,
@@ -90,7 +91,8 @@ export default {
         y: 410
       }]
     }
-  }, {
+  },
+    {
     id: uuidv4(),
     width: 1280,
     height: 720,
@@ -179,7 +181,8 @@ export default {
         y: 410
       }]
     }
-  }, {
+  },
+    {
     id: uuidv4(),
     width: 1280,
     height: 720,
@@ -268,7 +271,8 @@ export default {
         y: 426
       }]
     }
-  }, {
+  },
+    {
     id: uuidv4(),
     width: 1280,
     height: 720,
@@ -357,7 +361,8 @@ export default {
         y: 426
       }]
     }
-  }, {
+  },
+    {
     id: uuidv4(),
     width: 1280,
     height: 720,
@@ -446,7 +451,8 @@ export default {
         y: 310
       }]
     }
-  }, {
+  },
+    {
     id: uuidv4(),
     width: 1280,
     height: 720,
@@ -535,7 +541,8 @@ export default {
         y: 310
       }]
     }
-  }, {
+  },
+    {
     id: uuidv4(),
     width: 1280,
     height: 720,
@@ -544,7 +551,8 @@ export default {
     name: '字下',
     pic: 'https://alicdn.madaomall.com/feima-uploaded/images/03/f7/03f7dabbb202e5e378ba7dafdfd61c8f.png',
     layouts: null
-  }, {
+  },
+    {
     id: uuidv4(),
     width: 1280,
     height: 720,
