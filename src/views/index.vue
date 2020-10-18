@@ -78,8 +78,8 @@
 
                 <el-main>
                     <keep-alive>
-                        <router-view v-if="$route.meta.keepAlive" :username="username" :email="email" :grade="grade" :phone="phone"></router-view>
-                        <router-view v-if="!$route.meta.keepAlive" :username="username" :email="email" :grade="grade" :phone="phone"></router-view>
+                        <router-view v-if="$route.meta.keepAlive" :username="username" :email="email" :grade="grade" :phone="phone" :expiration="expiration"></router-view>
+                        <router-view v-if="!$route.meta.keepAlive" :username="username" :email="email" :grade="grade" :phone="phone" :expiration="expiration"></router-view>
                     </keep-alive>
                 </el-main>
             </el-container>
@@ -102,7 +102,8 @@
                 phone: '',
                 grade: '',
                 logo: logoIcon,
-                shrinkC: 'shrinkLong'
+                shrinkC: 'shrinkLong',
+                expiration: '',
             }
         },
         computed: {
@@ -112,12 +113,13 @@
         created() {
             // console.log(this.$http.defaults.headers)
             getUserInfo: {
-                this.$http.get("/api/my/info").then(res => {
-                    if (res.data.code == 1000){
-                        this.username = res.data.data.nikeName
-                        this.email = res.data.data.email
-                        this.phone = res.data.data.phone
-                        switch (res.data.data.grade) {
+                this.$http.post("/api/my/info",{}).then(res => {
+                    if (res.data.result.code == 1000){
+                        this.username = res.data.result.data.nikeName
+                        this.email = res.data.result.data.email
+                        this.phone = res.data.result.data.phone
+                        this.expiration = res.data.result.data.expiration
+                        switch (res.data.result.data.grade) {
                             case "free":
                                 this.grade = "免费会员"
                                 break;
@@ -135,7 +137,7 @@
                                 break;
                         }
                     }else{
-                        this.$error(res.data.code,res.data.message)
+                        this.$error(res.data.result.code,res.data.result.message)
                     }
                 })
             }

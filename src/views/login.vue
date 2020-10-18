@@ -101,12 +101,12 @@
             },
             login(username, password){
                 this.$http.get(
-                    "/api/auth/token",
+                    "/api/auth/login",
                     {
                         params: {
+                            'db': 'xiongtu',
                             'login': username,
                             'password': password,
-                            'db': 'xiongtu',
                         }
                     })
                     .then(res => {

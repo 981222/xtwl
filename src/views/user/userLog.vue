@@ -3,8 +3,8 @@
         <search :title="title" :content="content"></search>
 
         <el-row style="display: flex;align-items: center;">
-            <el-button type="primary" icon="el-icon-upload" size="small" @click="toRar('SelectByListName', userImageData, listName)" :loading="loadingSelect">导出</el-button>
-            <el-button type="primary" icon="el-icon-delete-solid" size="small" @click="deleteImage(listName)">删除</el-button>
+            <el-button type="primary" icon="el-icon-upload" size="small">导出</el-button>
+            <el-button type="primary" icon="el-icon-delete-solid" size="small">删除</el-button>
         </el-row>
 
         <el-table

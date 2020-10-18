@@ -18,9 +18,9 @@
                         <div class="text item info">
                             电子邮箱：<span style="float: right">{{ email }}</span>
                         </div>
-                        <div class="text item info">
-                            邀请码：<span style="float: right"></span>
-                        </div>
+<!--                        <div class="text item info">-->
+<!--                            邀请码：<span style="float: right"></span>-->
+<!--                        </div>-->
                     </div>
                 </el-card>
             </el-tab-pane>
@@ -34,7 +34,6 @@
                         <el-button type="primary" icon="el-icon-s-promotion">提现</el-button>
                     </div>
                     <el-table
-                            :data="tableData"
                             style="width: 100%"
                             height="250">
                         <el-table-column
@@ -98,7 +97,7 @@
     import md5 from 'js-md5';
 
     export default {
-        props:['username', 'email', 'phone', 'grade'],
+        props:['username', 'email', 'phone', 'grade','expiration'],
         data(){
             var validateOldPass = (rule, value, callback) => {
                 if (value === '') {

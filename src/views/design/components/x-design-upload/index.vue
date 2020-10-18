@@ -1,21 +1,35 @@
 <template>
   <el-upload
-    class="f-ad-upload"
-    action="https://jsonplaceholder.typicode.com/posts/"
-    :accept="params.accept || '.jpg,.png'"
-    :headers="headers"
-    :data="params.data"
-    :disabled="disabled"
-    :show-file-list="false"
-    :with-credentials="true"
-    :before-upload="beforeUpload"
-    :on-success="onSuccess"
-    :on-remove="onRemove"
-    :on-error="onError"
-    :on-progress="onProgress"
+          class="f-ad-upload"
+          :http-request="onUpload"
+          action="http://127.0.0.1:5000/api/dataAnalysis"
+          :accept="params.accept || '.jpg,.png'"
+          :show-file-list="false"
+          :before-upload="beforeUpload"
+          :on-success="onSuccess"
+          :on-remove="onRemove"
+          :on-error="onError"
+          :on-progress="onProgress"
   >
     <slot />
   </el-upload>
+<!--  <el-upload-->
+<!--    class="f-ad-upload"-->
+<!--    action="http://127.0.0.1:5000/api/dataAnalysis"-->
+<!--    :accept="params.accept || '.jpg,.png'"-->
+<!--    :headers="headers"-->
+<!--    :data="params.data"-->
+<!--    :disabled="disabled"-->
+<!--    :show-file-list="false"-->
+<!--    :with-credentials="true"-->
+<!--    :before-upload="beforeUpload"-->
+<!--    :on-success="onSuccess"-->
+<!--    :on-remove="onRemove"-->
+<!--    :on-error="onError"-->
+<!--    :on-progress="onProgress"-->
+<!--  >-->
+<!--    <slot />-->
+<!--  </el-upload>-->
 </template>
 
 <script>
@@ -39,7 +53,7 @@ export default {
   computed: {
     headers () {
       return {
-        token: 'token'
+        contentType: 'multipart/form-data',
       }
     }
   },
@@ -61,9 +75,22 @@ export default {
       return is
     },
     // 文件上传成功时的钩子
-    // onUpload(file) {
-    //   console.log(file.file)
-    // },
+    onUpload(file) {
+      console.log(file)
+      let formData = new FormData()
+      formData.append('file', file.file)
+      console.log(formData)
+      let config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      };
+      this.$http.post(
+              "/api/test",
+              formData,
+              config
+      )
+    },
     onSuccess (res) {
       // 此处可能需要根据 response 的值，校验接口是否成功
       this.disabled = false
