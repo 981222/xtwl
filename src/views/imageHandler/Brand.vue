@@ -7,9 +7,6 @@
         <el-tab-pane label="阿迪达斯" :name="this.$GLOBAL.BRAND_ADIDAS">
             <HandlerImg :name="activeName"></HandlerImg>
         </el-tab-pane>
-        <el-tab-pane label="天马" :name="this.$GLOBAL.BRAND_TIANMA">
-            <HandlerImg :name="activeName"></HandlerImg>
-        </el-tab-pane>
         <el-tab-pane label="彪马" :name="this.$GLOBAL.BRAND_PUMA">
             <HandlerImg :name="activeName"></HandlerImg>
         </el-tab-pane>
@@ -17,6 +14,9 @@
             <HandlerImg :name="activeName"></HandlerImg>
         </el-tab-pane>
         <el-tab-pane label="斯凯奇" :name="this.$GLOBAL.BRAND_SKECHERS">
+            <HandlerImg :name="activeName"></HandlerImg>
+        </el-tab-pane>
+        <el-tab-pane label="其他" :name="this.$GLOBAL.BRAND_TIANMA">
             <HandlerImg :name="activeName"></HandlerImg>
         </el-tab-pane>
     </el-tabs>

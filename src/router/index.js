@@ -10,8 +10,9 @@ import WaterMark from '../views/user/waterMark.vue'
 import ImageTemplate from '../components/image/imageTemplate'
 import Login from '../views/login.vue'
 import Register from '../views/register.vue'
+import AddItem from '../views/taoBaoItem/index.vue'
 import UserLog from '../views/user/userLog.vue'
-import News from '../views/news.vue'
+import Home from '../views/home.vue'
 import Data from '../views/dataAnalysis/data.vue'
 import UserRecharge from '../views/user/userRecharge.vue'
 import DownloadedImg from '../views/imageManage/downloadedImg.vue'
@@ -43,15 +44,15 @@ const router = new VueRouter({
       component: Register
     },
     {
-      path: '/new',
+      path: '/home',
       name: '公告信息',
       component: Index,
       icon: 'el-icon-s-home',
       children: [
         {
-          path: '/news',
+          path: '/home',
           name: '公告',
-          component: News
+          component: Home
         },
       ]
     },
@@ -110,35 +111,15 @@ const router = new VueRouter({
         //   name: '水印设置',
         //   component: WaterMark
         // },
-        {
-          path: '/userLog',
-          name: '操作日志',
-          component: UserLog
-        },
+        // {
+        //   path: '/userLog',
+        //   name: '操作日志',
+        //   component: UserLog
+        // },
         {
           path: '/userRecharge',
           name: '雄途会员',
           component: UserRecharge
-        },
-        // {
-        //   path: '/waterMark',
-        //   name: '水印',
-        //   component: WaterMark
-        // },
-      ]
-    },
-    {
-      path: '/videos',
-      name: '视频教程',
-      component: Index,
-      redirect: '/videoTutorial',
-      show: true,
-      icon: 'el-icon-video-camera-solid',
-      children: [
-        {
-          path: '/videoTutorial',
-          name: '操作视频',
-          component: VideoTutorial,
         },
       ]
     },
@@ -154,6 +135,36 @@ const router = new VueRouter({
           path: '/data',
           name: '表格分析',
           component: Data,
+        },
+      ]
+    },
+    {
+      path: '/add',
+      name: '商家管理',
+      component: Index,
+      redirect: '/addItem',
+      show: true,
+      icon: 'el-icon-s-shop',
+      children: [
+        {
+          path: '/addItem',
+          name: '商品发布',
+          component: AddItem,
+        },
+      ]
+    },
+    {
+      path: '/videos',
+      name: '视频教程',
+      component: Index,
+      redirect: '/videoTutorial',
+      show: true,
+      icon: 'el-icon-video-camera-solid',
+      children: [
+        {
+          path: '/videoTutorial',
+          name: '操作视频',
+          component: VideoTutorial,
         },
       ]
     },

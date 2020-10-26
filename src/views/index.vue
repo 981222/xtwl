@@ -10,7 +10,7 @@
                          @open="handleOpen"
                          @close="handleClose">
 
-                    <el-menu-item index="/news" class="nav-home">
+                    <el-menu-item index="/home" class="nav-home">
 <!--                        <i class="el-icon-s-promotion" style="color: #fff;margin-right: 10px"></i>-->
                         <i><img :src="logo" alt="" style="height: 18px;width: 18px;"></i>
 
@@ -24,7 +24,7 @@
                         </template>
                         <el-menu-item v-for="(item2,index2) in item.children"
                                       :index="item2.path"
-                                      :class="$route.path==item2.path?'is-active':''">
+                                      :class="$route.path == item2.path ? 'is-active' : ''">
                             {{item2.name}}
                         </el-menu-item>
                     </el-submenu>

@@ -130,25 +130,21 @@
                     case this.$GLOBAL.BRAND_ADIDAS:
                         this.getImage(articlenos, this.$GLOBAL.BRAND_ADIDAS)
                         break
-                    case this.$GLOBAL.BRAND_TIANMA:
-                        window.clearInterval(this.setIme);
-                        this.handlerLoading = false;
-                        alert("天马下载通道尚未开启!")
+                    case this.$GLOBAL.BRAND_CONVERSE:
+                        this.getImage(articlenos, this.$GLOBAL.BRAND_CONVERSE)
+                        break
+                    case this.$GLOBAL.BRAND_SKECHERS:
+                        this.getImage(articlenos, this.$GLOBAL.BRAND_SKECHERS)
                         break
                     case this.$GLOBAL.BRAND_PUMA:
                         window.clearInterval(this.setIme);
                         this.handlerLoading = false;
                         alert("彪马下载通道尚未开启!")
                         break
-                    case this.$GLOBAL.BRAND_CONVERSE:
+                    case this.$GLOBAL.BRAND_TIANMA:
                         window.clearInterval(this.setIme);
                         this.handlerLoading = false;
-                        alert("匡威下载通道尚未开启!")
-                        break
-                    case this.$GLOBAL.BRAND_SKECHERS:
-                        window.clearInterval(this.setIme);
-                        this.handlerLoading = false;
-                        alert("斯凯奇下载通道尚未开启!")
+                        alert("天马下载通道尚未开启!")
                         break
                 }
             },

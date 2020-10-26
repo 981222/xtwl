@@ -8,9 +8,6 @@
             <el-tab-pane label="阿迪达斯" :name="this.$GLOBAL.BRAND_ADIDAS">
                 <imageItem :name="this.$GLOBAL.BRAND_ADIDAS" v-if="this.$GLOBAL.BRAND_ADIDAS == activeName"></imageItem>
             </el-tab-pane>
-            <el-tab-pane label="天马" :name="this.$GLOBAL.BRAND_TIANMA">
-                <imageItem :name="this.$GLOBAL.BRAND_TIANMA" v-if="this.$GLOBAL.BRAND_TIANMA == activeName"></imageItem>
-            </el-tab-pane>
             <el-tab-pane label="彪马" :name="this.$GLOBAL.BRAND_PUMA">
                 <imageItem :name="this.$GLOBAL.BRAND_PUMA" v-if="this.$GLOBAL.BRAND_PUMA == activeName"></imageItem>
             </el-tab-pane>
@@ -20,7 +17,9 @@
             <el-tab-pane label="斯凯奇" :name="this.$GLOBAL.BRAND_SKECHERS">
                 <imageItem :name="this.$GLOBAL.BRAND_SKECHERS" v-if="this.$GLOBAL.BRAND_SKECHERS == activeName"></imageItem>
             </el-tab-pane>
-
+            <el-tab-pane label="其他" :name="this.$GLOBAL.BRAND_TIANMA">
+                <imageItem :name="this.$GLOBAL.BRAND_TIANMA" v-if="this.$GLOBAL.BRAND_TIANMA == activeName"></imageItem>
+            </el-tab-pane>
         </el-tabs>
     </div>
 </template>
@@ -32,7 +31,7 @@
     export default {
         data() {
             return {
-                title: "货号名称",
+                // title: "货号名称",
                 content: "货号名称",
                 activeName: this.$GLOBAL.BRAND_NIKE,
                 // userImageInfo: this.$store.state.userImageInfo,

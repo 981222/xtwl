@@ -12,6 +12,7 @@
 <!--        </el-form-item>-->
         <el-form-item>
             <el-button type="primary" @click="searchForArticleno" icon="el-icon-search" size="small">搜索</el-button>
+            <slot></slot>
         </el-form-item>
     </el-form>
 </template>

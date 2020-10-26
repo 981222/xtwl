@@ -173,8 +173,20 @@
                 }
             };
             var validatePass = (rule, value, callback) => {
+                var lv = 0;
+                if (/\d/.test(value)) lv++; //数字
+                if (/[a-z]/.test(value)) lv++; //小写
+                if (/[A-Z]/.test(value)) lv++; //大写
+                if (/\W/.test(value)) lv++; //特殊字符
+
                 if (value === '') {
                     callback(new Error('请输入密码'));
+                } else if (value.indexOf(' ') !== -1){
+                    callback(new Error('请输入不包含空格的密码'));
+                } else if (lv == 1){
+                    callback(new Error('为确保账号安全,密码必须由数字、字母、特殊字符组合！'));
+                } else if (value.length < 6 || value.length > 16){
+                    callback(new Error('密码长度请保持在6-16位！'));
                 } else {
                     if (this.ruleForm.checkPass !== '') {
                         this.$refs.ruleForm.validateField('checkPass');

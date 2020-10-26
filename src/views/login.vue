@@ -125,7 +125,7 @@
                             this.$http.defaults.headers = {
                                 'access_token': res.data.data.access_token
                             }
-                            this.$router.push("/news")
+                            this.$router.push("/home")
                             this.$message({
                                 showClose: true,
                                 message: '登陆成功',
